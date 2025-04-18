@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Houses</title>
+    <link rel="stylesheet" href="./style.css">
+    <!-- Google Fonts - Kalnia -->
+    <link href="https://fonts.googleapis.com/css2?family=Kalnia:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            transition: transform 0.3s ease;
+            background: #242424;
+            z-index: 1000;
+        }
+
+        .navbar.hidden {
+            transform: translateY(-100%);
+        }
+
+        .page-container {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 80px;
+        }
+
+        .logo {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 36px;
+            text-decoration: none;
+            font-family: 'Kalnia', serif;
+            text-transform: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: none;
+            cursor: pointer;
+            padding: 12px 30px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .nav-btn span {
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .filters-sidebar {
+            width: 300px;
+            background: #242424;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            height: fit-content;
+        }
+
+        .filters-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #333;
+        }
+
+        .filters-header h2 {
+            font-size: 20px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .reset-all-btn {
+            background: #808080;
+            border: 1px solid #ddd;
+            padding: 8px 16px;
+            border-radius: 6px;
+            color: white;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .reset-all-btn:hover {
+            background: #e31919;
+            border-color: #e31919;
+        }
+
+        .filter-section {
+            margin-bottom: 25px;
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+
+        .filter-section h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+            color: #ffffff;
+        }
+
+        .radio-item:hover {
+            background-color: #333;
+        }
+
+        .listings-container {
+            flex: 1;
+            background: #242424;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .sort-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #333;
+        }
+
+        .sort-header h1 {
+            font-size: 24px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .property-card {
+            background: #2a2a2a;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+
+        .property-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        .property-title {
+            font-size: 18px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .property-location {
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .property-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #242424;
+            border-radius: 8px;
+        }
+
+        .detail-item {
+            text-align: center;
+        }
+
+        .detail-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .detail-label {
+            color: #999;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .property-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+            padding: 15px;
+            background: #242424;
+            border-radius: 8px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #999;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #333;
+        }
+
+        .action-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .primary-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .primary-btn:hover {
+            background: #45a049;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .secondary-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        .secondary-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- navbar  -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                Rentify
+            </div>
+            <ul class="nav-links">
+                <li><button class="nav-btn" onclick="window.location.href='index.html'"><span>House</span></button></li>
+                <li><button class="nav-btn"><span>Automobile</span></button></li>
+                <li><button class="nav-btn"><span>Furniture</span></button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-container">
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar">
+            <div class="filters-header">
+                <h2>Filters</h2>
+                <button class="reset-all-btn" onclick="resetAllFilters()">↺ Reset All</button>
+            </div>
+
+            <div class="filter-section">
+                <h3>PG For</h3>
+                <div class="radio-group">
+                    <label class="radio-item">
+                        <input type="radio" name="pgFor" value="male">
+                        Male
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="pgFor" value="female">
+                        Female
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="pgFor" value="anyone">
+                        Anyone
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Preferred For</h3>
+                <div class="radio-group">
+                    <label class="radio-item">
+                        <input type="radio" name="preferredFor" value="student">
+                        Student
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="preferredFor" value="professional">
+                        Professional
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="preferredFor" value="anyone">
+                        Anyone
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>Food Facility</h3>
+                <div class="radio-group">
+                    <label class="radio-item">
+                        <input type="radio" name="foodFacility" value="available">
+                        Available
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" name="foodFacility" value="notAvailable">
+                        Not Available
+                    </label>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Listings Container -->
+        <main class="listings-container">
+            <div class="sort-header">
+                <h1>Available Properties</h1>
+            </div>
+
+            <!-- Property Card Example -->
+            <div class="property-card">
+                <div class="property-header">
+                    <a href="#" class="property-title">PG For Girls In Darya Ganj</a>
+                </div>
+                <p class="property-location">Netaji Subhash Marg near Golcha Cinema, Darya Ganj</p>
+                
+                <div class="property-details">
+                    <div class="detail-item">
+                        <div class="detail-value">₹5,000</div>
+                        <div class="detail-label">Deposit</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">Shared</div>
+                        <div class="detail-label">Room Type Available</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value">₹5,000</div>
+                        <div class="detail-label">Rent/Month</div>
+                    </div>
+                </div>
+
+                <div class="property-info">
+                    <div class="info-item">
+                        <img src="./images/user.svg" alt="">
+                        <span>Anyone • Preferred For Student</span>
+                    </div>
+                    <div class="info-item">
+                        <img src="./images/calendar.svg" alt="">
+                        <span>6 Days Ago Posted On</span>
+                    </div>
+                    <div class="info-item">
+                        <img src="./images/food.svg" alt="">
+                        <span>Food Facility Not Available</span>
+                    </div>
+                    <div class="info-item">
+                        <img src="./images/bed.svg" alt="">
+                        <span>4 Rooms Available</span>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="action-btn primary-btn" onclick="window.location.href='house-details.html'">Get Details</button>
+                    <button class="action-btn secondary-btn" onclick="window.location.href='tel:+1234567890'">Contact Owner</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <script src="./app.js"></script>
+    <script>
+        function resetAllFilters() {
+            // Reset all radio buttons
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                radio.checked = false;
+            });
+        }
+
+        // Navbar scroll handling
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('.navbar');
+        
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop) {
+                // Scrolling down
+                navbar.classList.add('hidden');
+            } else {
+                // Scrolling up
+                navbar.classList.remove('hidden');
+            }
+            
+            // Special case for top of page
+            if (scrollTop === 0) {
+                navbar.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+    </script>
+</body>
+</html> 
