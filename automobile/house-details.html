@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMW Bike Details - Rentify</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kalnia:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: none;
+            cursor: pointer;
+            padding: 12px 30px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .nav-btn span {
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 36px;
+            text-decoration: none;
+            z-index: 1000;
+            font-family: 'Kalnia', serif;
+            cursor: pointer;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: none;
+            color: white;
+            padding: 12px 35px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 160px;
+            justify-content: center;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .back-button span {
+            margin-left: 8px;
+        }
+
+        .details-container {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 0 20px;
+        }
+
+        .property-images {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .side-images {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .side-image {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .property-info {
+            background: #242424;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+
+        .property-title {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .property-location {
+            color: #999;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .property-details {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .detail-item {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .detail-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .detail-label {
+            color: #999;
+        }
+
+        .property-description {
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .contact-button {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .contact-button:hover {
+            background: #45a049;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .reviews-section {
+            background: #242424;
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .reviews-title {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .review-card {
+            background: #2a2a2a;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            object-fit: cover;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+        }
+
+        .review-date {
+            color: #999;
+            font-size: 14px;
+        }
+
+        .review-rating {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .review-text {
+            line-height: 1.5;
+            color: #ccc;
+        }
+
+        .write-review {
+            background: #2a2a2a;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .review-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .review-input {
+            background: #333;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            color: #fff;
+        }
+
+        .review-textarea {
+            background: #333;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            color: #fff;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .submit-review {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-review:hover {
+            background: #45a049;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="logo" onclick="window.location.href='home.html'">Rentify</div>
+    <button class="back-button" onclick="window.location.href='houses.html'">←<span>Back to Automobiles</span></button>
+    <ul class="nav-links">
+        <li><button class="nav-btn" onclick="window.location.href='index.html'"><span>House</span></button></li>
+        <li><button class="nav-btn" onclick="window.location.href='index.html'"><span>Automobile</span></button></li>
+        <li><button class="nav-btn"><span>Furniture</span></button></li>
+    </ul>
+
+    <div class="details-container">
+        <div class="property-images">
+            <img src="./images/bmw.jpg" alt="BMW Bike" class="main-image">
+            <div class="side-images">
+                <img src="./images/bmw.png" alt="BMW Bike Side View" class="side-image">
+                <img src="./images/bmw.png" alt="BMW Bike Interior" class="side-image">
+            </div>
+        </div>
+
+        <div class="property-info">
+            <h1 class="property-title">BMW Bike</h1>
+            <p class="property-location">
+                <img src="./images/location.svg" alt="Location">
+                Netaji Subhash Marg near Golcha Cinema, Darya Ganj
+            </p>
+            
+            <div class="property-details">
+                <div class="detail-item">
+                    <div class="detail-value">₹5,000</div>
+                    <div class="detail-label">Rent/Month</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-value">2 Wheeler</div>
+                    <div class="detail-label">Type</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-value">New</div>
+                    <div class="detail-label">Condition</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-value">2023</div>
+                    <div class="detail-label">Model Year</div>
+                </div>
+            </div>
+
+            <div class="property-description">
+                <h3>Description</h3>
+                <p>Premium BMW bike available for rent. This 2023 model comes with all the latest features and is in excellent condition. Perfect for daily commuting or weekend rides. The bike is well-maintained and comes with all necessary documentation.</p>
+            </div>
+
+            <button class="contact-button" onclick="window.location.href='tel:+1234567890'">Contact Owner</button>
+        </div>
+
+        <div class="reviews-section">
+            <h2 class="reviews-title">Reviews</h2>
+            
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="./images/avatar1.jpg" alt="Reviewer" class="reviewer-avatar">
+                    <div>
+                        <div class="reviewer-name">Rahul Sharma</div>
+                        <div class="review-date">2 days ago</div>
+                    </div>
+                </div>
+                <div class="review-rating">★★★★★</div>
+                <div class="review-text">
+                    Excellent BMW bike in perfect condition. The owner maintains it very well and the performance is outstanding. Perfect for daily commute and weekend rides. The rental process was smooth and the documentation was handled professionally.
+                </div>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <img src="./images/avatar2.jpg" alt="Reviewer" class="reviewer-avatar">
+                    <div>
+                        <div class="reviewer-name">Priya Patel</div>
+                        <div class="review-date">1 week ago</div>
+                    </div>
+                </div>
+                <div class="review-rating">★★★★☆</div>
+                <div class="review-text">
+                    Great experience renting this BMW. The bike handles beautifully and the fuel efficiency is impressive. The owner is very responsive and helpful. Only minor suggestion would be to include a helmet with the rental.
+                </div>
+            </div>
+
+            <div class="write-review">
+                <h3>Write a Review</h3>
+                <form class="review-form">
+                    <input type="text" placeholder="Your Name" class="review-input">
+                    <select class="review-input">
+                        <option value="5">5 Stars</option>
+                        <option value="4">4 Stars</option>
+                        <option value="3">3 Stars</option>
+                        <option value="2">2 Stars</option>
+                        <option value="1">1 Star</option>
+                    </select>
+                    <textarea placeholder="Share your experience with this BMW bike..." class="review-textarea"></textarea>
+                    <button type="submit" class="submit-review">Submit Review</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+</html> 

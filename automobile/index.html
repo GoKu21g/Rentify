@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automobile Rent Services</title>
+    <!-- custom css link  -->
+    <link rel="stylesheet" href="./style.css">
+    <!-- <link rel="stylesheet" href="./media.css"> -->
+    <!-- <link rel="stylesheet" href="./media.css"> -->
+    <!-- Google Fonts - Kalnia -->
+    <link href="https://fonts.googleapis.com/css2?family=Kalnia:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Remove margin since navbar is absolute */
+        .header {
+            margin-top: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: none;
+            cursor: pointer;
+            padding: 12px 30px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .nav-btn span {
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 36px;
+            text-decoration: none;
+            z-index: 1000;
+            font-family: 'Kalnia', serif;
+            text-transform: none;
+            letter-spacing: 1px;
+        }
+
+        .cta {
+            border-radius: 50px;
+            padding: 15px 40px;
+            transition: all 0.3s ease;
+        }
+
+        .cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- header  -->
+    <section class="header">
+        <div class="logo" onclick="window.location.href='home.html'">Rentify</div>
+        <ul class="nav-links">
+            <li><button class="nav-btn"><span>House</span></button></li>
+            <li><button class="nav-btn"><span>Automobile</span></button></li>
+            <li><button class="nav-btn"><span>Furniture</span></button></li>
+            <li><button class="nav-btn"><span>List</span></button></li>
+        </ul>
+        <div class="container">
+            <div class="header-info">
+                <h1 class="header-headline">your perfect Automobile waiting for you </h1>
+                <p class="header-subtitle">
+                    we help you get your dream Automobile with us.
+                </p>
+
+                <a href="houses.html" class="cta">Explore Now</a>
+            </div>
+        </div>
+    </section>
+    <!-- header  -->
+
+    <!-- search box -->
+    <form>
+        <div class="container">
+            <div class="input">
+                <input type="text" placeholder="loaction">
+                <img src="./images/location.svg" alt="">
+            </div>
+            <div class="input">
+                <input type="text" placeholder="type">
+                <img src="./images/home1.svg" alt="" id="">
+            </div>
+            <div class="input">
+                <input type="text" placeholder="budget">
+                <img src="./images/money.svg" alt="">
+            </div>
+            <div class="input search">
+                <input type="submit" value="search now">
+
+            </div>
+        </div>
+    </form>
+    <!-- search box -->
+
+    <!-- product  -->
+    <section id="product">
+        <div class="product-info">
+            <h2 class="product-title">
+                our Popular Automobile
+            </h2>
+
+            <a href="houses.html" class="product-btn">
+                Explore All
+                <img src="./images/arrow.svg" alt="">
+            </a>
+        </div>
+        <div class="container">
+            <div class="product-card">
+                <img src="./images/bmw.jpg" alt="" class="product-img">
+                <div class="card-info">
+
+                    <div class="card-info-content">
+                        <img src="./images/location.svg" alt="">
+                        <p class="loaction-name">BMW</p>
+                    </div>
+                    <div class="card-info-content">
+                        <div class="content">
+                            <img src="./images/bed.svg" alt="">
+                            <p>&nbsp;Bike</p>
+                        </div>
+                        <div class="content">
+                            <img src="./images/size.svg" alt="">
+                            <p>New</p>
+                        </div>
+                        <div class="content">
+                            <img src="./images/area.svg" alt="">
+                            <p>12 KM</p>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <p>₹5000</p>
+                        <a href="" class="booking-btn">Book Now</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="./images/duc.jpg" alt="" class="product-img">
+                <div class="card-info">
+
+                    <div class="card-info-content">
+                        <img src="./images/location.svg" alt="">
+                        <p class="loaction-name">Ducati</p>
+                    </div>
+                    <div class="card-info-content">
+                        <div class="content">
+                            <img src="./images/bed.svg" alt="">
+                            <p>&nbsp;Bike</p>
+                        </div>
+                        <div class="content">
+                            <img src="./images/size.svg" alt="">
+                            <p>New</p>
+                        </div>
+                        <div class="content">
+                            <img src="./images/area.svg" alt="">
+                            <p>20 KM</p>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <p>₹8000</p>
+                        <a href="" class="booking-btn">Book Now</a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="./images/doge.jpg" alt="" class="product-img">
+                <div class="card-info">
+
+                    <div class="card-info-content">
+                        <img src="./images/location.svg" alt="">
+                        <p class="loaction-name">Dodge Charger</p>
+                    </div>
+                    <div class="card-info-content">
+                        <div class="content">
+                            <img src="./images/home1.svg" alt="">
+                            <p>&nbsp;Car</p>
+                        </div>
+                        <div class="content">
+                            <img src="./images/size.svg" alt="">
+                            <p>Old</p>
+                        </div>
+                        <div class="content">
+                            <img src="./images/area.svg" alt="">
+                            <p>14 KM</p>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <p>₹15000</p>
+                        <a href="" class="booking-btn">Book Now</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- product  -->
+
+    <!-- gsap link  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js" integrity="sha512-VEBjfxWUOyzl0bAwh4gdLEaQyDYPvLrZql3pw1ifgb6fhEvZl9iDDehwHZ+dsMzA0Jfww8Xt7COSZuJ/slxc4Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- gsap link  -->
+
+    <script src="./app.js"></script>
+</body>
+
+</html>
