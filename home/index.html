@@ -1,0 +1,947 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rentify - Home Appliance Rental Services</title>
+    <!-- Google Fonts - Kalnia -->
+    <link href="https://fonts.googleapis.com/css2?family=Kalnia:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
+                url('https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.0/swiper-bundle.min.js.map') no-repeat center center;
+            background-size: cover;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('../Home\ Page/images/background.jpg')no-repeat center center;
+            background-size: cover;
+            z-index: -2;
+            filter: brightness(0.7);
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7));
+            z-index: -1;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 36px;
+            text-decoration: none;
+            z-index: 1000;
+            font-family: 'Kalnia', serif;
+            text-transform: none;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: none;
+            cursor: pointer;
+            padding: 12px 30px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            min-width: 120px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .nav-btn span {
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .header-info {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-headline {
+            font-size: 64px;
+            margin-bottom: 20px;
+            text-transform: capitalize;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .header-subtitle {
+            font-size: 22px;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 16px 45px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .cta:hover {
+            background: #3e8e41;
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta:hover::before {
+            left: 100%;
+        }
+
+        /* About Section */
+        .about {
+            background-color: #ffffff;
+            position: relative;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1200/800') no-repeat center center;
+            background-size: cover;
+            opacity: 0.03;
+            z-index: 0;
+        }
+
+        .about-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+        }
+
+        .about-image img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .about-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #333;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 4px;
+            background: #4CAF50;
+        }
+
+        .about-text {
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            flex: 1;
+            min-width: 200px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+
+        .feature:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: #e0e0e0;
+        }
+
+        .feature-icon {
+            font-size: 35px;
+            margin-bottom: 15px;
+            color: #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover .feature-icon {
+            background: rgba(76, 175, 80, 0.2);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-title {
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background-color: #f8f9fa;
+            position: relative;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/1200/800') no-repeat center center;
+            background-size: cover;
+            opacity: 0.03;
+            z-index: 0;
+        }
+
+        .testimonials-container {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonials-title {
+            display: inline-block;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .testimonials-title:after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            width: 60px;
+            height: 4px;
+            background: #4CAF50;
+        }
+
+        .testimonials-subtitle {
+            font-size: 18px;
+            margin-top: 15px;
+            color: #666;
+        }
+
+        .testimonials-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-card {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            max-width: 350px;
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            border-color: #e0e0e0;
+        }
+
+        .testimonial-quote {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            position: relative;
+            padding: 0 10px;
+            color: #444;
+        }
+
+        .testimonial-quote:before {
+            content: '\201C';
+            font-size: 70px;
+            position: absolute;
+            left: -20px;
+            top: -30px;
+            color: #4CAF50;
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+            border: 3px solid #fff;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .author-info p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Footer Section */
+        .footer {
+            background-color: #222;
+            color: #fff;
+            padding: 70px 0 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(76, 175, 80, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            justify-content: space-between;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-col {
+            flex: 1;
+            min-width: 230px;
+        }
+
+        .footer-title {
+            font-size: 22px;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 12px;
+            color: #fff;
+        }
+
+        .footer-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: #4CAF50;
+        }
+
+        .footer-links {
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+            list-style: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: #4CAF50;
+            transform: translateX(5px);
+        }
+
+        .footer-links i {
+            margin-right: 10px;
+            color: #4CAF50;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: #4CAF50;
+            transform: translateY(-5px);
+        }
+
+        .social-icon i {
+            color: #fff;
+            font-size: 18px;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+            font-size: 14px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-logo {
+            font-family: 'Kalnia', serif;
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .footer-desc {
+            color: #aaa;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        /* Mobile menu button */
+        .menu-btn {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            width: 45px;
+            height: 45px;
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 5px auto;
+            transition: all 0.3s ease;
+        }
+
+        /* Appliance categories section */
+        
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .header-headline {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-headline {
+                font-size: 36px;
+            }
+
+            .header-subtitle {
+                font-size: 16px;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.5s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .about-container,
+            .testimonials-grid,
+            .footer-container {
+                flex-direction: column;
+            }
+
+            .about-image {
+                order: 1;
+            }
+
+            .about-content {
+                order: 2;
+            }
+
+            .feature {
+                min-width: 100%;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <section class="header" id="home">
+        <div class="logo" onclick="window.location.href='#home'">Rentify</div>
+        <ul class="nav-links">
+            <li><button class="nav-btn" onclick="scrollToSection('home')"><span>Home</span></button></li>
+            <li><button class="nav-btn" onclick="scrollToSection('about')"><span>About</span></button></li>
+            <!-- <li><button class="nav-btn" onclick="scrollToSection('categories')"><span>Appliances</span></button></li> -->
+            <li><button class="nav-btn" onclick="scrollToSection('testimonials')"><span>Testimonials</span></button></li>
+            <li><button class="nav-btn"><span>Login</span></button></li>
+        </ul>
+        <button class="menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="container">
+            <div class="header-info">
+                <h1 class="header-headline">Your perfect appliances waiting for you</h1>
+                <p class="header-subtitle">
+                    We help you get quality home appliances on rent without the commitment of buying.
+                </p>
+                <button class="cta" onclick="scrollToSection('categories')">Browse</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container about-container">
+            <div class="about-image">
+                <img src="/api/placeholder/500/500" alt="About Rentify">
+            </div>
+            <div class="about-content">
+                <h2 class="section-title">About Rentify</h2>
+                <p class="about-text">
+                    Rentify is a premier home appliance rental service that provides high-quality appliances to customers across the country. Founded in 2020, we've been making life more convenient for thousands of customers who prefer flexibility over ownership.
+                </p>
+                <p class="about-text">
+                    Our mission is simple: to provide access to premium appliances without the hefty price tag of buying. Whether you're a student, young professional, or someone who likes to upgrade regularly, Rentify has the perfect solution for you.
+                </p>
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <h3 class="feature-title">Affordable Rates</h3>
+                        <p>Pay a fraction of the cost with our flexible rental plans</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h3 class="feature-title">Fast Delivery</h3>
+                        <p>Get your appliances delivered within 24-48 hours</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3 class="feature-title">Free Maintenance</h3>
+                        <p>Enjoy hassle-free repairs and maintenance at no extra cost</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appliance Categories Section -->
+    <!-- <section class="categories" id="categories">
+        <div class="container categories-container">
+            <h2 class="section-title categories-title">Our Appliance Categories</h2>
+            <p class="testimonials-subtitle">Browse through our wide range of premium appliances available for rent</p>
+        </div>
+        <div class="container categories-grid">
+            <div class="category-card">
+                <div class="category-img">
+                    <img src="/api/placeholder/400/300" alt="Kitchen Appliances">
+                </div>
+                <div class="category-content">
+                    <h3 class="category-name">Kitchen Appliances</h3>
+                    <p class="category-desc">Refrigerators, Microwaves, Mixers & more</p>
+                    <a href="#" class="category-btn">Explore</a>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-img">
+                    <img src="/api/placeholder/400/300" alt="Laundry Appliances">
+                </div>
+                <div class="category-content">
+                    <h3 class="category-name">Laundry Appliances</h3>
+                    <p class="category-desc">Washing Machines, Dryers & more</p>
+                    <a href="#" class="category-btn">Explore</a>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-img">
+                    <img src="/api/placeholder/400/300" alt="Air Conditioners">
+                </div>
+                <div class="category-content">
+                    <h3 class="category-name">Air Conditioners</h3>
+                    <p class="category-desc">Split ACs, Window ACs & Portable ACs</p>
+                    <a href="#" class="category-btn">Explore</a>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-img">
+                    <img src="/api/placeholder/400/300" alt="Entertainment Devices">
+                </div>
+                <div class="category-content">
+                    <h3 class="category-name">Entertainment</h3>
+                    <p class="category-desc">TVs, Sound Systems, Gaming Consoles</p>
+                    <a href="#" class="category-btn">Explore</a>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container testimonials-container">
+            <h2 class="section-title testimonials-title">What Our Customers Say</h2>
+            <p class="testimonials-subtitle">Hear from some of our satisfied customers who have enjoyed our rental services</p>
+        </div>
+        <div class="container testimonials-grid">
+            <div class="testimonial-card">
+                <p class="testimonial-quote">
+                    Rentify made setting up my new apartment so much easier. I got a fridge, washing machine, and microwave all delivered in one day. The quality is excellent and the monthly rates are very reasonable.
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-image">
+                        <img src="/api/placeholder/100/100" alt="Customer">
+                    </div>
+                    <div class="author-info">
+                        <h4>Samantha Johnson</h4>
+                        <p>Young Professional</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-quote">
+                    As a college student, buying appliances wasn't an option for me. Rentify allowed me to get a quality refrigerator and air conditioner for my apartment without breaking the bank. Their customer service is exceptional too!
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-image">
+                        <img src="/api/placeholder/100/100" alt="Customer">
+                    </div>
+                    <div class="author-info">
+                        <h4>David Chen</h4>
+                        <p>College Student</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-quote">
+                    I've been using Rentify for two years now. I've updated my TV twice during that time, always getting the latest model. Their upgrade options are fantastic, and I never have to worry about my old appliances gathering dust.
+                </p>
+                <div class="testimonial-author">
+                    <div class="author-image">
+                        <img src="/api/placeholder/100/100" alt="Customer">
+                    </div>
+                    <div class="author-info">
+                        <h4>Priya Sharma</h4>
+                        <p>Tech Enthusiast</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer" id="footer">
+        <div class="container footer-container">
+            <div class="footer-col">
+                <span class="footer-logo">Rentify</span>
+                <p>Your one-stop solution for quality home appliance rentals. Affordable, convenient, and hassle-free.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3 class="footer-title">Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <!-- <div class="footer-col">
+                <h3 class="footer-title">Our Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Kitchen Appliances</a></li>
+                    <li><a href="#">Home Entertainment</a></li>
+                    <li><a href="#">Air Conditioners</a></li>
+                    <li><a href="#">Washing Machines</a></li>
+                    <li><a href="#">Refrigerators</a></li>
+                </ul>
+            </div> -->
+            <div class="footer-col">
+                <h3 class="footer-title">Contact Info</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Main Street, City, Country</li>
+                    <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                    <li><i class="fas fa-envelope"></i> info@rentify.com</li>
+                    <li><i class="fas fa-clock"></i> Mon-Fri: 9am - 6pm</li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-copyright">
+            <p>&copy; 2025 Rentify. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js" integrity="sha512-VEBjfxWUOyzl0bAwh4gdLEaQyDYPvLrZql3pw1ifgb6fhEvZl9iDDehwHZ+dsMzA0Jfww8Xt7COSZuJ/slxc4Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Custom JS -->
+    <script>
+        // Smooth scrolling function
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                window.scrollTo({
+                    top: section.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // GSAP Animations
+        window.addEventListener('DOMContentLoaded', () => {
+            // Header animations
+            gsap.from('.logo', { opacity: 0, y: -50, duration: 1 });
+            gsap.from('.nav-links li', { opacity: 0, y: -50, stagger: 0.2, duration: 1 });
+            gsap.from('.header-headline', { opacity: 0, y: 50, duration: 1, delay: 0.5 });
+            gsap.from('.header-subtitle', { opacity: 0, y: 50, duration: 1, delay: 0.7 });
+            gsap.from('.cta', { opacity: 0, y: 50, duration: 1, delay: 0.9 });
+
+            // Scroll animations
+            const sections = document.querySelectorAll('section:not(.header)');
+            sections.forEach(section => {
+                gsap.fromTo(
+                    section.querySelectorAll('.section-title, .about-text, .feature, .testimonial-card, .footer-col'),
+                    { opacity: 0, y: 50 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1,
+                        stagger: 0.2,
+                        scrollTrigger: {
+                            trigger: section,
+                            start: 'top 80%',
+                        }
+                    }
+                );
+            });
+        });
+    </script>
+</body>
+
+</html>
