@@ -39,52 +39,69 @@
 
         .filters-sidebar {
             width: 300px;
-            background: #f8f9fa;
+            background: #fff;
             padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
             height: fit-content;
+            position: sticky;
+            top: 100px;
+            transition: all 0.3s ease;
+        }
+
+        .filters-sidebar:hover {
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
         }
 
         .filters-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             padding-bottom: 15px;
             border-bottom: 2px solid #eee;
         }
 
         .filters-header h2 {
             font-size: 20px;
-            color: #000000;
+            color: #333;
             font-weight: 600;
+            display: flex;
+            align-items: center;
         }
 
         .reset-all-btn {
-            background: #808080;
+            background: #f0f0f0;
             border: 1px solid #ddd;
             padding: 8px 16px;
             border-radius: 6px;
-            color: white;
+            color: #666;
             font-size: 14px;
             display: flex;
             align-items: center;
             gap: 5px;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .reset-all-btn:hover {
             background: #e31919;
             border-color: #e31919;
+            color: white;
         }
 
         .filter-section {
             margin-bottom: 25px;
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
+            background: #f9f9f9;
+            padding: 18px;
+            border-radius: 10px;
             border: 1px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        .filter-section:hover {
+            background: #f0f8ff;
+            border-color: #d0e8ff;
         }
 
         .filter-section h3 {
@@ -92,25 +109,198 @@
             margin-bottom: 15px;
             color: #333;
             font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .radio-group {
+        .filter-count {
+            background: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .filter-count.active {
+            opacity: 1;
+        }
+
+        .checkbox-group {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
-        .radio-item {
+        .checkbox-item {
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 8px;
-            border-radius: 4px;
-            transition: background-color 0.2s;
+            padding: 8px 10px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            user-select: none;
         }
 
-        .radio-item:hover {
-            background-color: #f8f9fa;
+        .checkbox-item:hover {
+            background-color: rgba(0, 123, 255, 0.1);
+            transform: translateX(2px);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin: 0;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #007bff;
+        }
+
+        .checkbox-item input[type="checkbox"]:checked + span {
+            color: #007bff;
+            font-weight: 500;
+        }
+
+        .range-slider {
+            padding: 10px 0;
+        }
+
+        .range-values {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .range-values span {
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .range-values span.active {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .slider-container {
+            position: relative;
+            height: 40px;
+            margin: 10px 0;
+        }
+
+        .slider-track {
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            background: #e0e0e0;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 3px;
+        }
+
+        .slider-range {
+            position: absolute;
+            height: 5px;
+            background: #007bff;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: 3px;
+        }
+
+        .slider-container input[type="range"] {
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            pointer-events: none;
+            -webkit-appearance: none;
+            z-index: 10;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            pointer-events: auto;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #007bff;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+        }
+
+        .slider-container input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .slider-container input[type="range"]::-moz-range-thumb {
+            pointer-events: auto;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #007bff;
+            cursor: pointer;
+            border: 2px solid white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+        }
+
+        .slider-container input[type="range"]::-moz-range-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .apply-filter-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .apply-filter-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.2);
+            transform: translateX(-100%);
+            transition: all 0.3s ease;
+        }
+
+        .apply-filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        .apply-filter-btn:hover::after {
+            transform: translateX(100%);
+        }
+
+        .apply-filter-btn:active {
+            transform: translateY(0);
         }
 
         .listings-container {
@@ -143,6 +333,12 @@
             margin-bottom: 20px;
             padding: 20px;
             border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .property-header {
@@ -219,6 +415,7 @@
         .action-btn {
             padding: 10px 20px;
             border-radius: 6px;
+            cursor: pointer;
         }
 
         .primary-btn {
@@ -314,6 +511,94 @@
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Active filters badge */
+        .active-filters-badge {
+            display: inline-flex;
+            background: #f44336;
+            color: white;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            margin-left: 8px;
+            font-weight: 600;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* No results message styling */
+        .no-results-message {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+            border: 1px dashed #dee2e6;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Filter chips */
+        .active-filters-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            background: #f5f5f5;
+            display: none;
+        }
+
+        .active-filters-container.show {
+            display: flex;
+        }
+
+        .filter-chip {
+            display: inline-flex;
+            align-items: center;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #333;
+            gap: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .filter-chip:hover {
+            background: #f8f9fa;
+        }
+
+        .filter-chip .remove-chip {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f0f0f0;
+            cursor: pointer;
+            color: #666;
+            font-weight: bold;
+            line-height: 1;
+            font-size: 10px;
+        }
+
+        .filter-chip .remove-chip:hover {
+            background: #dc3545;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -365,58 +650,118 @@
         <aside class="filters-sidebar">
             <div class="filters-header">
                 <h2>Filters</h2>
-                <button class="reset-all-btn" onclick="resetAllFilters()">↺ Reset All</button>
+                <button class="reset-all-btn" onclick="resetAllFilters()">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 2v6h6"></path>
+                        <path d="M21 12A9 9 0 0 0 6 5.3L3 8"></path>
+                        <path d="M21 22v-6h-6"></path>
+                        <path d="M3 12a9 9 0 0 0 15 6.7l3-2.7"></path>
+                    </svg>
+                    Reset All
+                </button>
+            </div>
+
+            <div class="active-filters-container" id="activeFiltersContainer">
+                <!-- Active filter chips will be added here -->
             </div>
 
             <div class="filter-section">
-                <h3>PG For</h3>
-                <div class="radio-group">
-                    <label class="radio-item">
-                        <input type="radio" name="pgFor" value="male">
-                        Male
+                <h3>
+                    Location
+                    <span class="filter-count" id="locationCount">0</span>
+                </h3>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="location" value="mumbai" onchange="filterChanged()">
+                        <span>Mumbai</span>
                     </label>
-                    <label class="radio-item">
-                        <input type="radio" name="pgFor" value="female">
-                        Female
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="location" value="delhi" onchange="filterChanged()">
+                        <span>Delhi</span>
                     </label>
-                    <label class="radio-item">
-                        <input type="radio" name="pgFor" value="anyone">
-                        Anyone
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="location" value="solan" onchange="filterChanged()">
+                        <span>Solan</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="location" value="lucknow" onchange="filterChanged()">
+                        <span>Lucknow</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="location" value="noida" onchange="filterChanged()">
+                        <span>Noida</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="location" value="greater noida" onchange="filterChanged()">
+                        <span>Greater Noida</span>
                     </label>
                 </div>
             </div>
 
             <div class="filter-section">
-                <h3>Preferred For</h3>
-                <div class="radio-group">
-                    <label class="radio-item">
-                        <input type="radio" name="preferredFor" value="student">
-                        Student
+                <h3>
+                    Price Range
+                    <span class="filter-count" id="priceCount">0</span>
+                </h3>
+                <div class="range-slider">
+                    <div class="range-values">
+                        <span id="priceMinContainer">₹<span id="priceMin">0</span></span>
+                        <span id="priceMaxContainer">₹<span id="priceMax">100000</span></span>
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-track"></div>
+                        <div class="slider-range" id="priceRange"></div>
+                        <input type="range" id="priceMinRange" min="0" max="100000" step="1000" value="0" 
+                            oninput="updatePriceRange()">
+                        <input type="range" id="priceMaxRange" min="0" max="100000" step="1000" value="100000" 
+                            oninput="updatePriceRange()">
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h3>
+                    Category
+                    <span class="filter-count" id="categoryCount">0</span>
+                </h3>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="category" value="houses" onchange="filterChanged()">
+                        <span>House/Apartment</span>
                     </label>
-                    <label class="radio-item">
-                        <input type="radio" name="preferredFor" value="professional">
-                        Professional
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="category" value="furniture" onchange="filterChanged()">
+                        <span>Furniture</span>
                     </label>
-                    <label class="radio-item">
-                        <input type="radio" name="preferredFor" value="anyone">
-                        Anyone
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="category" value="electronics" onchange="filterChanged()">
+                        <span>Electronics</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="category" value="vehcile" onchange="filterChanged()">
+                        <span>Automobile</span>
                     </label>
                 </div>
             </div>
 
             <div class="filter-section">
-                <h3>Food Facility</h3>
-                <div class="radio-group">
-                    <label class="radio-item">
-                        <input type="radio" name="foodFacility" value="available">
-                        Available
+                <h3>
+                    Availability
+                    <span class="filter-count" id="availabilityCount">0</span>
+                </h3>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="availability" value="true" onchange="filterChanged()">
+                        <span>Available</span>
                     </label>
-                    <label class="radio-item">
-                        <input type="radio" name="foodFacility" value="notAvailable">
-                        Not Available
+                    <label class="checkbox-item">
+                        <input type="checkbox" name="availability" value="false" onchange="filterChanged()">
+                        <span>Not Available</span>
                     </label>
                 </div>
             </div>
+
+            <button class="apply-filter-btn" onclick="applyFilters()" id="applyFilterBtn">Apply Filters</button>
         </aside>
 
         <!-- Listings Container -->
@@ -476,12 +821,382 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
     <script src="./app.js"></script>
     <script>
+        // Initialize variables to track filter state
+        let activeFilters = {
+            location: [],
+            category: [],
+            availability: [],
+            price: { min: 0, max: 100000, active: false }
+        };
+
+        // Function to reset all filters
         function resetAllFilters() {
-            // Reset all radio buttons
-            const radioButtons = document.querySelectorAll('input[type="radio"]');
-            radioButtons.forEach(radio => {
-                radio.checked = false;
+            // Reset all checkboxes
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
             });
+            
+            // Reset price range
+            document.getElementById('priceMinRange').value = 0;
+            document.getElementById('priceMaxRange').value = 100000;
+            updatePriceRange();
+            
+            // Reset active filters tracking
+            activeFilters = {
+                location: [],
+                category: [],
+                availability: [],
+                price: { min: 0, max: 100000, active: false }
+            };
+            
+            // Reset count badges
+            document.getElementById('locationCount').textContent = '0';
+            document.getElementById('locationCount').classList.remove('active');
+            
+            document.getElementById('categoryCount').textContent = '0';
+            document.getElementById('categoryCount').classList.remove('active');
+            
+            document.getElementById('availabilityCount').textContent = '0';
+            document.getElementById('availabilityCount').classList.remove('active');
+            
+            document.getElementById('priceCount').textContent = '0';
+            document.getElementById('priceCount').classList.remove('active');
+            
+            // Hide active filters container
+            document.getElementById('activeFiltersContainer').classList.remove('show');
+            document.getElementById('activeFiltersContainer').innerHTML = '';
+            
+            // Reset filters header
+            const filtersHeader = document.querySelector('.filters-header h2');
+            filtersHeader.textContent = 'Filters';
+            
+            // Show all property cards
+            showAllListings();
+            
+            // Update the apply button to default state
+            const applyBtn = document.getElementById('applyFilterBtn');
+            applyBtn.textContent = 'Apply Filters';
+            applyBtn.style.background = 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)';
+        }
+        
+        // Function called when any filter is changed
+        function filterChanged() {
+            updateFilterCounts();
+            updateActiveFilterChips();
+            
+            // Change apply button to indicate changes
+            const applyBtn = document.getElementById('applyFilterBtn');
+            applyBtn.textContent = 'Apply Filters';
+            applyBtn.style.background = 'linear-gradient(135deg, #28a745 0%, #218838 100%)';
+            
+            // Optionally apply filters in real-time (uncomment if you want immediate filtering)
+            // applyFilters();
+        }
+        
+        // Function to update the price range display and slider
+        function updatePriceRange() {
+            const minRange = document.getElementById('priceMinRange');
+            const maxRange = document.getElementById('priceMaxRange');
+            const minDisplay = document.getElementById('priceMin');
+            const maxDisplay = document.getElementById('priceMax');
+            const minContainer = document.getElementById('priceMinContainer');
+            const maxContainer = document.getElementById('priceMaxContainer');
+            const priceRange = document.getElementById('priceRange');
+            
+            // Make sure min is not greater than max
+            if (parseInt(minRange.value) > parseInt(maxRange.value)) {
+                minRange.value = maxRange.value;
+            }
+            
+            // Update the display
+            const minValue = parseInt(minRange.value);
+            const maxValue = parseInt(maxRange.value);
+            
+            minDisplay.textContent = minValue.toLocaleString('en-IN');
+            maxDisplay.textContent = maxValue.toLocaleString('en-IN');
+            
+            // Update slider visual
+            const minPercent = (minValue / parseInt(minRange.max)) * 100;
+            const maxPercent = (maxValue / parseInt(maxRange.max)) * 100;
+            
+            priceRange.style.left = minPercent + '%';
+            priceRange.style.width = (maxPercent - minPercent) + '%';
+            
+            // Set active state if price filter is used
+            const isPriceActive = minValue > 0 || maxValue < 100000;
+            minContainer.classList.toggle('active', isPriceActive);
+            maxContainer.classList.toggle('active', isPriceActive);
+            
+            // Update active filters tracking
+            activeFilters.price = {
+                min: minValue,
+                max: maxValue,
+                active: isPriceActive
+            };
+            
+            // Update price count badge
+            const priceBadge = document.getElementById('priceCount');
+            priceBadge.classList.toggle('active', isPriceActive);
+            priceBadge.textContent = isPriceActive ? '1' : '0';
+            
+            // Update filter chips and trigger filter changed event
+            filterChanged();
+        }
+        
+        // Function to update filter count badges
+        function updateFilterCounts() {
+            // Update location count
+            const locations = Array.from(document.querySelectorAll('input[name="location"]:checked'))
+                .map(checkbox => checkbox.value);
+            
+            activeFilters.location = locations;
+            
+            const locationBadge = document.getElementById('locationCount');
+            locationBadge.textContent = locations.length;
+            locationBadge.classList.toggle('active', locations.length > 0);
+            
+            // Update category count
+            const categories = Array.from(document.querySelectorAll('input[name="category"]:checked'))
+                .map(checkbox => checkbox.value);
+            
+            activeFilters.category = categories;
+            
+            const categoryBadge = document.getElementById('categoryCount');
+            categoryBadge.textContent = categories.length;
+            categoryBadge.classList.toggle('active', categories.length > 0);
+            
+            // Update availability count
+            const availabilities = Array.from(document.querySelectorAll('input[name="availability"]:checked'))
+                .map(checkbox => checkbox.value);
+            
+            activeFilters.availability = availabilities;
+            
+            const availabilityBadge = document.getElementById('availabilityCount');
+            availabilityBadge.textContent = availabilities.length;
+            availabilityBadge.classList.toggle('active', availabilities.length > 0);
+            
+            // Update filters header with total active count
+            let totalActive = 0;
+            totalActive += locations.length > 0 ? 1 : 0;
+            totalActive += categories.length > 0 ? 1 : 0;
+            totalActive += availabilities.length > 0 ? 1 : 0;
+            totalActive += activeFilters.price.active ? 1 : 0;
+            
+            const filtersHeader = document.querySelector('.filters-header h2');
+            if (totalActive > 0) {
+                filtersHeader.innerHTML = `Filters <span class="active-filters-badge">${totalActive}</span>`;
+            } else {
+                filtersHeader.textContent = 'Filters';
+            }
+        }
+        
+        // Function to update active filter chips
+        function updateActiveFilterChips() {
+            const container = document.getElementById('activeFiltersContainer');
+            container.innerHTML = '';
+            
+            let hasActiveFilters = false;
+            
+            // Add location chips
+            activeFilters.location.forEach(location => {
+                addFilterChip(container, 'location', location);
+                hasActiveFilters = true;
+            });
+            
+            // Add category chips
+            activeFilters.category.forEach(category => {
+                let displayName = category;
+                if (category === 'houses') displayName = 'House/Apartment';
+                if (category === 'vehcile') displayName = 'Automobile';
+                addFilterChip(container, 'category', category, displayName);
+                hasActiveFilters = true;
+            });
+            
+            // Add availability chips
+            activeFilters.availability.forEach(availability => {
+                const displayName = availability === 'true' ? 'Available' : 'Not Available';
+                addFilterChip(container, 'availability', availability, displayName);
+                hasActiveFilters = true;
+            });
+            
+            // Add price chip if active
+            if (activeFilters.price.active) {
+                const displayName = `₹${activeFilters.price.min.toLocaleString('en-IN')} - ₹${activeFilters.price.max.toLocaleString('en-IN')}`;
+                addFilterChip(container, 'price', 'price-range', displayName);
+                hasActiveFilters = true;
+            }
+            
+            // Show/hide the container
+            container.classList.toggle('show', hasActiveFilters);
+        }
+        
+        // Function to add a filter chip
+        function addFilterChip(container, type, value, displayName = null) {
+            const chip = document.createElement('div');
+            chip.className = 'filter-chip';
+            chip.innerHTML = `
+                <span>${displayName || value}</span>
+                <span class="remove-chip" onclick="removeFilter('${type}', '${value}')">×</span>
+            `;
+            container.appendChild(chip);
+        }
+        
+        // Function to remove a filter
+        function removeFilter(type, value) {
+            if (type === 'price') {
+                // Reset price range
+                document.getElementById('priceMinRange').value = 0;
+                document.getElementById('priceMaxRange').value = 100000;
+                updatePriceRange();
+            } else {
+                // Find and uncheck the checkbox
+                const checkbox = document.querySelector(`input[name="${type}"][value="${value}"]`);
+                if (checkbox) {
+                    checkbox.checked = false;
+                    filterChanged();
+                }
+            }
+        }
+        
+        // Function to apply filters
+        function applyFilters() {
+            // Reset the apply button
+            const applyBtn = document.getElementById('applyFilterBtn');
+            applyBtn.textContent = 'Filters Applied';
+            applyBtn.style.background = 'linear-gradient(135deg, #007bff 0%, #0056b3 100%)';
+            
+            // Get all property cards
+            const propertyCards = document.querySelectorAll('.property-card');
+            
+            // Get filter values from active filters object
+            const selectedLocations = activeFilters.location;
+            const selectedCategories = activeFilters.category;
+            const selectedAvailability = activeFilters.availability;
+            const minPrice = activeFilters.price.min;
+            const maxPrice = activeFilters.price.max;
+            
+            // Filter the property cards
+            let visibleCount = 0;
+            
+            propertyCards.forEach(card => {
+                // Get location from the card
+                const locationElement = card.querySelector('.property-location');
+                const location = locationElement ? locationElement.textContent.trim().toLowerCase() : '';
+                
+                // Get category from the card
+                const categoryElement = card.querySelector('.detail-item:nth-child(2) .detail-value');
+                const category = categoryElement ? categoryElement.textContent.trim().toLowerCase() : '';
+                
+                // Get availability from the card
+                const availabilityElement = card.querySelector('.detail-item:nth-child(3) .detail-value');
+                const availabilityText = availabilityElement ? availabilityElement.textContent.trim().toLowerCase() : '';
+                const availability = availabilityText.includes('available') ? 'true' : 'false';
+                
+                // Get price from the card
+                const priceElement = card.querySelector('.detail-item:nth-child(1) .detail-value');
+                const priceText = priceElement ? priceElement.textContent.trim().replace('₹', '').replace(/,/g, '') : '0';
+                const price = parseInt(priceText);
+                
+                // Check if the card matches all selected filters
+                const locationMatch = selectedLocations.length === 0 || 
+                    selectedLocations.some(selectedLocation => location.includes(selectedLocation));
+                
+                let categoryMatch = selectedCategories.length === 0;
+                if (!categoryMatch) {
+                    for (const selectedCategory of selectedCategories) {
+                        if (selectedCategory === 'houses' && (category.includes('house') || category.includes('apartment'))) {
+                            categoryMatch = true;
+                            break;
+                        } else if (selectedCategory === 'vehcile' && (category.includes('automobile') || category.includes('vehicle'))) {
+                            categoryMatch = true;
+                            break;
+                        } else if (category.includes(selectedCategory)) {
+                            categoryMatch = true;
+                            break;
+                        }
+                    }
+                }
+                
+                const availabilityMatch = selectedAvailability.length === 0 || 
+                    selectedAvailability.includes(availability);
+                
+                const priceMatch = (isNaN(price) || (price >= minPrice && price <= maxPrice));
+                
+                // Show or hide the card based on filters
+                if (locationMatch && categoryMatch && availabilityMatch && priceMatch) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.5s ease';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Show a message if no results
+            const noResultsMsg = document.getElementById('noResultsMessage');
+            
+            if (visibleCount === 0) {
+                if (!noResultsMsg) {
+                    // Create a no results message
+                    const noResults = document.createElement('div');
+                    noResults.id = 'noResultsMessage';
+                    noResults.className = 'no-results-message';
+                    noResults.innerHTML = `
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#6c757d" stroke-width="1" style="margin-bottom: 15px;">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                        </svg>
+                        <h3 style="color: #495057; margin: 15px 0 10px;">No Matches Found</h3>
+                        <p style="color: #6c757d; margin-bottom: 20px;">We couldn't find any listings matching your filters.</p>
+                        <button onclick="resetAllFilters()" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">Reset All Filters</button>
+                    `;
+                    
+                    // Insert after any notes that may be present
+                    const apiNoteElement = document.querySelector('.listings-container > div[style*="rgba"]');
+                    if (apiNoteElement) {
+                        apiNoteElement.insertAdjacentElement('afterend', noResults);
+                    } else {
+                        const sortHeader = document.querySelector('.sort-header');
+                        if (sortHeader) {
+                            sortHeader.insertAdjacentElement('afterend', noResults);
+                        }
+                    }
+                }
+            } else if (noResultsMsg) {
+                noResultsMsg.remove();
+            }
+            
+            // Update sort header to show count
+            const sortHeader = document.querySelector('.sort-header h1');
+            if (sortHeader) {
+                if (visibleCount > 0) {
+                    sortHeader.innerHTML = `Showing ${visibleCount} Listing${visibleCount !== 1 ? 's' : ''}`;
+                } else {
+                    sortHeader.textContent = 'MongoDB Rentify Listings';
+                }
+            }
+        }
+        
+        // Function to show all listings
+        function showAllListings() {
+            // Show all property cards
+            const propertyCards = document.querySelectorAll('.property-card');
+            propertyCards.forEach(card => {
+                card.style.display = 'block';
+            });
+            
+            // Remove any no results message
+            const noResultsMsg = document.getElementById('noResultsMessage');
+            if (noResultsMsg) {
+                noResultsMsg.remove();
+            }
+            
+            // Reset sort header
+            const sortHeader = document.querySelector('.sort-header h1');
+            if (sortHeader) {
+                sortHeader.textContent = 'MongoDB Rentify Listings';
+            }
         }
 
         // Navbar scroll handling
@@ -548,8 +1263,180 @@
             setTimeout(() => {
                 loadDemoListings();
             }, 500);
+            
+            // Setup price range on page load
+            updatePriceRange();
+            
+            // Add event listeners to checkboxes
+            const checkboxes = document.querySelectorAll('.filters-sidebar input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', filterChanged);
+            });
+            
+            // Add event listeners to price range inputs
+            const priceMinRange = document.getElementById('priceMinRange');
+            const priceMaxRange = document.getElementById('priceMaxRange');
+            
+            priceMinRange.addEventListener('input', updatePriceRange);
+            priceMaxRange.addEventListener('input', updatePriceRange);
+            
+            // Add event listener to apply button
+            const applyBtn = document.getElementById('applyFilterBtn');
+            applyBtn.addEventListener('click', applyFilters);
+            
+            // Add event listener to reset button
+            const resetBtn = document.querySelector('.reset-all-btn');
+            resetBtn.addEventListener('click', resetAllFilters);
+            
+            // Add animation style
+            const styleEl = document.createElement('style');
+            document.head.appendChild(styleEl);
+            styleEl.sheet.insertRule(`
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            `);
+            styleEl.sheet.insertRule(`
+                .no-results-message {
+                    background: #f8f9fa;
+                    padding: 30px;
+                    border-radius: 8px;
+                    text-align: center;
+                    margin: 20px 0;
+                    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+                    animation: fadeIn 0.5s ease;
+                }
+            `);
+            styleEl.sheet.insertRule(`
+                .filter-chip {
+                    display: inline-flex;
+                    align-items: center;
+                    background: #e9ecef;
+                    color: #495057;
+                    padding: 4px 12px;
+                    border-radius: 20px;
+                    margin: 0 8px 8px 0;
+                    font-size: 14px;
+                    transition: all 0.2s ease;
+                }
+            `);
+            styleEl.sheet.insertRule(`
+                .filter-chip:hover {
+                    background: #dee2e6;
+                }
+            `);
+            styleEl.sheet.insertRule(`
+                .remove-chip {
+                    margin-left: 6px;
+                    font-size: 18px;
+                    line-height: 1;
+                    cursor: pointer;
+                }
+            `);
+            styleEl.sheet.insertRule(`
+                .remove-chip:hover {
+                    color: #dc3545;
+                }
+            `);
+            styleEl.sheet.insertRule(`
+                #activeFiltersContainer {
+                    max-height: 0;
+                    overflow: hidden;
+                    transition: max-height 0.3s ease;
+                    padding: 0 15px;
+                }
+            `);
+            styleEl.sheet.insertRule(`
+                #activeFiltersContainer.show {
+                    max-height: 200px;
+                    padding: 10px 15px;
+                    margin-bottom: 10px;
+                    border-bottom: 1px solid #dee2e6;
+                }
+            `);
+            
+            // Initial filter application if URL has parameters
+            if (window.location.search) {
+                const urlParams = new URLSearchParams(window.location.search);
+                
+                // Check for location filter
+                if (urlParams.has('location')) {
+                    const locations = urlParams.get('location').split(',');
+                    locations.forEach(location => {
+                        const checkbox = document.querySelector(`input[name="location"][value="${location}"]`);
+                        if (checkbox) checkbox.checked = true;
+                    });
+                }
+                
+                // Check for category filter
+                if (urlParams.has('category')) {
+                    const categories = urlParams.get('category').split(',');
+                    categories.forEach(category => {
+                        const checkbox = document.querySelector(`input[name="category"][value="${category}"]`);
+                        if (checkbox) checkbox.checked = true;
+                    });
+                }
+                
+                // Check for price filter
+                if (urlParams.has('minPrice') && urlParams.has('maxPrice')) {
+                    const minPrice = parseInt(urlParams.get('minPrice'));
+                    const maxPrice = parseInt(urlParams.get('maxPrice'));
+                    
+                    document.getElementById('priceMinRange').value = minPrice;
+                    document.getElementById('priceMaxRange').value = maxPrice;
+                    updatePriceRange();
+                }
+                
+                // Apply the filters
+                filterChanged();
+                applyFilters();
+            }
         });
         
+        // Function to share filters via URL
+        function shareFilters() {
+            const url = new URL(window.location.href.split('?')[0]);
+            
+            // Add location filters
+            if (activeFilters.location.length > 0) {
+                url.searchParams.append('location', activeFilters.location.join(','));
+            }
+            
+            // Add category filters
+            if (activeFilters.category.length > 0) {
+                url.searchParams.append('category', activeFilters.category.join(','));
+            }
+            
+            // Add price filters
+            if (activeFilters.price.active) {
+                url.searchParams.append('minPrice', activeFilters.price.min);
+                url.searchParams.append('maxPrice', activeFilters.price.max);
+            }
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(url.toString())
+                .then(() => {
+                    // Show toast notification
+                    const toast = document.createElement('div');
+                    toast.className = 'toast-notification';
+                    toast.innerHTML = `
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M13 4l-8 8-4-4"></path>
+                        </svg>
+                        <span>Filter URL copied to clipboard!</span>
+                    `;
+                    document.body.appendChild(toast);
+                    
+                    // Auto remove after 3 seconds
+                    setTimeout(() => {
+                        toast.style.opacity = '0';
+                        setTimeout(() => toast.remove(), 300);
+                    }, 3000);
+                })
+                .catch(err => console.error('Failed to copy URL: ', err));
+        }
+
         // Function to load demo listings from localStorage
         function loadDemoListings() {
             const listingsContainer = document.querySelector('.listings-container');
