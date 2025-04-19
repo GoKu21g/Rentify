@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rentify - Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kalnia:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .signup-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 900px; /* Increased from 450px */
+            transition: transform 0.3s ease;
+        }
+
+        .signup-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .logo {
+            text-align: center;
+            font-family: 'Kalnia', serif;
+            font-size: 3rem;
+            color: #2d3436;
+            margin-bottom: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group {
+            flex: 1;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.7rem;
+            color: #2d3436;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 4px rgba(0,123,255,0.1);
+            outline: none;
+        }
+
+        .file-input-label {
+            display: inline-block;
+            padding: 1rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #2d3436;
+            border: 2px dashed #007bff;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .file-input-label:hover {
+            background: #e9ecef;
+            border-style: solid;
+        }
+
+        .file-preview {
+            margin: 15px auto;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: none;
+            border: 3px solid #007bff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .signup-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .signup-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+        }
+
+        .signup-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .login-link a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .error-message, .success-message {
+            text-align: center;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .error-message {
+            color: #dc3545;
+            background-color: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.2);
+        }
+        
+        .success-message {
+            color: #28a745;
+            background-color: rgba(40, 167, 69, 0.1);
+            border: 1px solid rgba(40, 167, 69, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .signup-container {
+                padding: 1.5rem;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .form-group input,
+            .file-input-label,
+            .signup-btn {
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="logo">Rentify</div>
+        <form id="signupForm" onsubmit="handleSubmit(event)">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required placeholder="Choose a username">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" pattern="[0-9]{10}" required placeholder="Enter your phone number">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required placeholder="Create a strong password">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" required placeholder="Confirm your password">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="avatar" class="file-input-label" id="avatarLabel">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        Upload Profile Picture
+                    </label>
+                    <input type="file" id="avatar" accept="image/*" style="display: none;" onchange="previewImage(event)">
+                    <img id="avatarPreview" class="file-preview" alt="Avatar preview">
+                </div>
+            </div>
+            <button type="submit" class="signup-btn">Create Account</button>
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+            <div class="login-link">
+                Already have an account? <a href="./login.html">Login</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            const preview = document.getElementById('avatarPreview');
+            const file = event.target.files[0];
+            const label = document.getElementById('avatarLabel');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    preview.src = reader.result;
+                    preview.style.display = 'block';
+                    label.innerHTML = `
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        ${file.name}`;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            
+            const fullname = document.getElementById('fullname').value;
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const avatarFile = document.getElementById('avatar').files[0];
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Reset messages
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+
+            if (password !== confirmPassword) {
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Passwords do not match';
+                return;
+            }
+
+            try {
+                // Create form data for file upload
+                const formData = new FormData();
+                formData.append('fullname', fullname);
+                formData.append('username', username);
+                formData.append('email', email);
+                formData.append('phone', phone);
+                formData.append('password', password);
+                
+                if (avatarFile) {
+                    formData.append('avatar', avatarFile);
+                }
+
+                // Updated API endpoint - using the auth route
+                const response = await fetch('https://rentify-be-ngjp.onrender.com/api/v1/auth/register', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                // Check if response is JSON
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        // Show success message
+                        successMessage.style.display = 'block';
+                        successMessage.textContent = 'Registration successful! Redirecting to login page...';
+                        
+                        // Clear form
+                        document.getElementById('signupForm').reset();
+                        document.getElementById('avatarPreview').style.display = 'none';
+                        document.getElementById('avatarLabel').innerHTML = `
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            Upload Profile Picture`;
+                        
+                        // Redirect to login page after a delay
+                        setTimeout(() => {
+                            window.location.href = './login.html';
+                        }, 2000);
+                    } else {
+                        errorMessage.style.display = 'block';
+                        if (data.message) {
+                            errorMessage.textContent = data.message;
+                        } else if (data.error) {
+                            // Handle specific error types
+                            if (data.error.includes('email') && data.error.includes('exists')) {
+                                errorMessage.textContent = 'This email is already registered. Please use a different email.';
+                            } else if (data.error.includes('phone') && data.error.includes('exists')) {
+                                errorMessage.textContent = 'This phone number is already registered.';
+                            } else {
+                                errorMessage.textContent = data.error;
+                            }
+                        } else {
+                            errorMessage.textContent = 'Registration failed. Please try again.';
+                        }
+                    }
+                } else {
+                    // Response is not JSON, likely an HTML error page
+                    throw new Error('Invalid server response. The API endpoint might be incorrect.');
+                }
+            } catch (error) {
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Connection error: ' + (error.message || 'Unable to connect to the server');
+                console.error('Registration error:', error);
+            }
+        }
+    </script>
+</body>
+</html>

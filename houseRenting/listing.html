@@ -6,138 +6,1009 @@
     <title>List an Item for Rent</title>
     <!-- You might want to link a CSS file for styling -->
     <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Kalnia:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             padding: 20px;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            margin: 0;
+            color: #333;
+            line-height: 1.6;
         }
+        
+        .navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background: white;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            padding: 15px 0;
+        }
+        
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            color: #333;
+            font-size: 28px;
+            font-weight: 700;
+            font-family: 'Kalnia', serif;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+        
+        .nav-btn {
+            background: #f0f0f0;
+            border: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .nav-btn:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+        
+        .nav-btn span {
+            color: #333;
+            font-weight: 500;
+        }
+        
         .listing-form {
             background: #fff;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            max-width: 600px;
-            margin: 40px auto;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            max-width: 800px;
+            margin: 100px auto 40px;
+            transition: all 0.4s ease;
         }
+        
+        .listing-form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+        
         .listing-form h1 {
             text-align: center;
             margin-bottom: 30px;
             color: #333;
+            font-family: 'Kalnia', serif;
+            position: relative;
+            padding-bottom: 15px;
         }
+        
+        .listing-form h1:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #007bff, #0056b3);
+            border-radius: 3px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            flex: 1;
+            position: relative;
         }
+        
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            font-weight: bold;
-            color: #555;
+            font-weight: 500;
+            color: #444;
+            transition: all 0.3s ease;
         }
+        
         .form-group input[type="text"],
         .form-group input[type="number"],
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box; /* Prevents padding from adding to width */
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-family: inherit;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: #f9f9f9;
+            color: #333;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
         }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 4px rgba(0,123,255,0.15);
+            outline: none;
+            background: #fff;
+        }
+        
         .form-group textarea {
-            height: 100px;
+            height: 150px;
             resize: vertical;
+            line-height: 1.6;
         }
+        
+        .file-input-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            background: linear-gradient(135deg, #f2f8ff 0%, #eaf5ff 100%);
+            color: #444;
+            border: 2px dashed #80bdff;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            font-weight: 500;
+            gap: 10px;
+        }
+        
+        .file-input-label:hover {
+            background: #e9f2ff;
+            border-style: solid;
+            color: #0056b3;
+        }
+        
+        .file-input-label svg {
+            transition: all 0.3s ease;
+        }
+        
+        .file-input-label:hover svg {
+            transform: translateY(-2px);
+        }
+        
         .form-group input[type="file"] {
-            padding: 3px;
+            display: none;
         }
-        .form-group input[type="checkbox"] {
-             margin-right: 5px;
+        
+        .image-preview {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+            display: none;
+            margin-top: 15px;
+            border: 2px solid #80bdff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
+        
+        .image-preview:hover {
+            transform: scale(1.02);
+        }
+        
         .submit-btn {
-            background-color: #5cb85c;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
             color: white;
-            padding: 12px 25px;
+            padding: 16px 25px;
             border: none;
-            border-radius: 4px;
+            border-radius: 10px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: 600;
             display: block;
             width: 100%;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            margin-top: 35px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,123,255,0.3);
         }
+        
         .submit-btn:hover {
-            background-color: #4cae4c;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,123,255,0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.2);
+            transform: translateX(-100%);
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover::after {
+            transform: translateX(100%);
+        }
+        
+        .error-message, .success-message {
+            text-align: center;
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+            display: none;
+            animation: fadeIn 0.3s ease;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+        
+        .error-message {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .success-message {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .login-required {
+            text-align: center;
+            padding: 50px;
+            margin-top: 100px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            transform: translateY(-5px);
+            transition: all 0.4s ease;
+        }
+        
+        .login-required:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .login-required h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-family: 'Kalnia', serif;
+        }
+        
+        .login-required p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 16px;
+        }
+        
+        .login-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,123,255,0.4);
+        }
+        
+        .login-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        /* Form Field Animations */
+        .form-group input:focus + label,
+        .form-group textarea:focus + label,
+        .form-group select:focus + label {
+            color: #007bff;
+        }
+        
+        /* User profile styles */
+        .user-profile {
+            display: none;
+            position: relative;
+        }
+        
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #f0f0f0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-weight: 500;
+            border: 2px solid #ddd;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-avatar:hover {
+            transform: scale(1.05);
+            border-color: #007bff;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+        
+        .profile-dropdown {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+            padding: 15px;
+            min-width: 200px;
+            display: none;
+            z-index: 1001;
+        }
+        
+        .profile-dropdown.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .dropdown-item {
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            color: #333;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-item:hover {
+            background: #f0f8ff;
+            color: #007bff;
+        }
+        
+        .dropdown-item:hover svg {
+            stroke: #007bff;
+        }
+        
+        .dropdown-item svg {
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-item span {
+            margin-left: 12px;
+            font-weight: 500;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* Progress animation for form submission */
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+        
+        .loading {
+            animation: pulse 1.5s infinite;
+        }
+        
+        /* Form field focus highlight */
+        .form-field-highlight {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            position: absolute;
+            top: 0;
+            right: 0;
+            color: #007bff;
+        }
+        
+        .form-group:focus-within .form-field-highlight {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                Rentify
+            </div>
+            <ul class="nav-links">
+                <li><button class="nav-btn" onclick="window.location.href='index.html'"><span>House</span></button></li>
+                <li><button class="nav-btn" onclick="window.location.href='../automobile/index.html'"><span>Automobile</span></button></li>
+                <li><button class="nav-btn" onclick="window.location.href='../furniture/index.html'"><span>Furniture</span></button></li>
+                <!-- User profile or auth buttons -->
+                <li>
+                    <div id="userProfile" class="user-profile">
+                        <div class="profile-avatar" id="profileAvatar" onclick="toggleDropdown()">
+                            <!-- Will be filled by JS -->
+                        </div>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <a href="../profile.html" class="dropdown-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                <span>Profile</span>
+                            </a>
+                            <a href="#" class="dropdown-item" onclick="logout()">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                    <polyline points="16 17 21 12 16 7"></polyline>
+                                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                                </svg>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div id="authButtons" class="auth-buttons">
+                        <a href="../home/login.html"><button class="nav-btn"><span>Login</span></button></a>
+                        <a href="../home/signup.html"><button class="nav-btn"><span>Sign Up</span></button></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-    <div class="listing-form">
+    <!-- Login required message (shown when user is not logged in) -->
+    <div id="loginRequired" class="login-required" style="display: none;">
+        <h2>Login Required</h2>
+        <p>You need to be logged in to list an item for rent.</p>
+        <a href="../home/login.html" class="login-btn">Login Now</a>
+    </div>
+
+    <!-- Listing form (shown when user is logged in) -->
+    <div id="listingForm" class="listing-form" style="display: none;">
         <h1>List Your Item</h1>
-        <form action="/submit-listing" method="POST" enctype="multipart/form-data">
-            <!-- Title -->
-            <div class="form-group">
-                <label for="title">Title:</label>
-                <input type="text" id="title" name="title" required>
+        <form id="createListingForm">
+            <div class="form-row">
+                <!-- Title -->
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" required placeholder="Give your listing a descriptive title">
+                    <span class="form-field-highlight">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </span>
+                </div>
+                
+                <!-- Price -->
+                <div class="form-group">
+                    <label for="price">Price (per month)</label>
+                    <input type="number" id="price" name="price" step="0.01" required placeholder="Enter rental price">
+                    <span class="form-field-highlight">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <!-- Category -->
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        <option value="">--Select Category--</option>
+                        <option value="house">House/Apartment</option>
+                        <option value="automobile">Vehicle/Automobile</option>
+                        <option value="furniture">Furniture</option>
+                        <option value="electronics">Electronics</option>
+                    </select>
+                    <span class="form-field-highlight">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </span>
+                </div>
+
+                <!-- Location -->
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" required placeholder="Where is your item located?">
+                    <span class="form-field-highlight">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </span>
+                </div>
             </div>
 
             <!-- Description -->
             <div class="form-group">
-                <label for="description">Description:</label>
-                <textarea id="description" name="description" required></textarea>
-            </div>
-
-            <!-- Price -->
-            <div class="form-group">
-                <label for="price">Price (per month/day/etc.):</label>
-                <input type="number" id="price" name="price" step="0.01" required>
-            </div>
-
-            <!-- Category -->
-            <div class="form-group">
-                <label for="category">Category:</label>
-                <select id="category" name="category" required>
-                    <option value="">--Select Category--</option>
-                    <option value="house">House</option>
-                    <option value="automobile">Automobile</option>
-                    <option value="furniture">Furniture</option>
-                </select>
-            </div>
-
-            <!-- Location -->
-            <div class="form-group">
-                <label for="location">Location:</label>
-                <input type="text" id="location" name="location" required>
-            </div>
-
-            <!-- Images -->
-            <div class="form-group">
-                <label for="images">Images:</label>
-                <input type="file" id="images" name="images[]" multiple accept="image/*">
-                 <small></small>
+                <label for="description">Description</label>
+                <textarea id="description" name="description" required placeholder="Describe your item in detail. Include features, condition, and any other relevant information."></textarea>
+                <span class="form-field-highlight">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </span>
             </div>
 
             <!-- Availability -->
             <div class="form-group">
-                 <label>Availability:</label>
-                 <label for="available_now">
-                    <input type="checkbox" id="available_now" name="available_now" value="true"> Available Now
-                 </label>
-                 <!-- You could add date pickers here for specific availability ranges if needed -->
+                <label for="availability">Availability</label>
+                <select id="availability" name="availability" required>
+                    <option value="">--Select Availability--</option>
+                    <option value="available">Available Now</option>
+                    <option value="unavailable">Not Available</option>
+                    <option value="pending">Pending/Reserved</option>
+                </select>
+                <span class="form-field-highlight">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </span>
             </div>
 
-            <!-- Owner -->
+            <!-- Images -->
             <div class="form-group">
-                <label for="owner">Owner Name:</label>
-                <input type="text" id="owner" name="owner" required>
-                 <!-- Consider pre-filling if user is logged in -->
+                <label for="images" class="file-input-label" id="imageLabel">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/>
+                        <line x1="12" y1="3" x2="12" y2="15"/>
+                    </svg>
+                    <span>Upload Images (Max 1MB)</span>
+                </label>
+                <input type="file" id="images" name="images" accept="image/*" onchange="previewImage(event)">
+                <img id="imagePreview" class="image-preview" alt="Image preview">
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="submit-btn">List Item</button>
+            <button type="submit" class="submit-btn" id="submitBtn">List Item</button>
+            
+            <!-- Messages -->
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
         </form>
     </div>
 
+    <script>
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            checkUserLogin();
+        });
+        
+        function checkUserLogin() {
+            const userProfile = document.getElementById('userProfile');
+            const authButtons = document.getElementById('authButtons');
+            const profileAvatar = document.getElementById('profileAvatar');
+            const listingForm = document.getElementById('listingForm');
+            const loginRequired = document.getElementById('loginRequired');
+            
+            // Check if user data exists in localStorage
+            const user = localStorage.getItem('user');
+            const accessToken = localStorage.getItem('accessToken');
+            
+            if (user && accessToken) {
+                // User is logged in
+                const userData = JSON.parse(user);
+                
+                // Show profile section, hide auth buttons
+                userProfile.style.display = 'block';
+                authButtons.style.display = 'none';
+                
+                // Show listing form, hide login required message
+                listingForm.style.display = 'block';
+                loginRequired.style.display = 'none';
+                
+                // If user has avatar, display it
+                if (userData.avatar) {
+                    profileAvatar.innerHTML = `<img src="${userData.avatar}" alt="Profile">`;
+                } else {
+                    // Otherwise show initials
+                    const initials = getInitials(userData.fullname || userData.username || '');
+                    profileAvatar.textContent = initials;
+                }
+            } else {
+                // User is not logged in
+                userProfile.style.display = 'none';
+                authButtons.style.display = 'flex';
+                
+                // Hide listing form, show login required message
+                listingForm.style.display = 'none';
+                loginRequired.style.display = 'block';
+            }
+        }
+        
+        function getInitials(name) {
+            return name.split(' ')
+                .map(word => word.charAt(0).toUpperCase())
+                .slice(0, 2)
+                .join('');
+        }
+        
+        function toggleDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.classList.toggle('active');
+        }
+        
+        function logout() {
+            // Clear localStorage
+            localStorage.removeItem('user');
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            
+            // Redirect to login page
+            window.location.href = '../home/login.html';
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('profileDropdown');
+            const avatar = document.getElementById('profileAvatar');
+            
+            if (!avatar.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+        
+        // Preview the selected image
+        function previewImage(event) {
+            const preview = document.getElementById('imagePreview');
+            const file = event.target.files[0];
+            const label = document.getElementById('imageLabel');
+            
+            if (file) {
+                // Check file size
+                const fileSize = Math.round(file.size / 1024); // KB
+                const maxSize = 1024; // 1MB
+                
+                if (fileSize > maxSize) {
+                    showError(`Image is too large (${fileSize}KB). Maximum size is ${maxSize}KB.`);
+                    event.target.value = ''; // Clear the file input
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function() {
+                    preview.src = reader.result;
+                    preview.style.display = 'block';
+                    label.innerHTML = `
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        <span>${file.name} (${fileSize}KB)</span>`;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // Handle form submission
+        document.getElementById('createListingForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            // Get form button and store original text
+            const submitBtn = document.getElementById('submitBtn');
+            const originalBtnText = submitBtn.textContent;
+            
+            try {
+                // Show loading state
+                submitBtn.textContent = 'Creating listing...';
+                submitBtn.disabled = true;
+                submitBtn.classList.add('loading');
+                
+                const accessToken = localStorage.getItem('accessToken');
+                if (!accessToken) {
+                    showError('You must be logged in to create a listing');
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('loading');
+                    return;
+                }
+                
+                const title = document.getElementById('title').value;
+                const description = document.getElementById('description').value;
+                const price = document.getElementById('price').value;
+                const category = document.getElementById('category').value;
+                const location = document.getElementById('location').value;
+                const availability = document.getElementById('availability').value;
+                const imageFile = document.getElementById('images').files[0];
+                
+                const errorMessage = document.getElementById('errorMessage');
+                const successMessage = document.getElementById('successMessage');
+                
+                // Reset messages
+                errorMessage.style.display = 'none';
+                successMessage.style.display = 'none';
+                
+                // Validate required fields
+                if (!title || !description || !price || !category || !location || !availability) {
+                    showError('All fields are required');
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('loading');
+                    return;
+                }
+                
+                if (!imageFile) {
+                    showError('Please upload at least one image');
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('loading');
+                    return;
+                }
+                
+                // Create FormData object for sending to API
+                const formData = new FormData();
+                formData.append('title', title);
+                formData.append('description', description);
+                formData.append('price', price);
+                
+                // The backend schema has specific enum values for category
+                // Make sure we're sending one of: "furniture", "houses", "electronics", "vehcile"
+                // Notice the backend has a typo in "vehcile" - we need to match it exactly
+                let mappedCategory = category;
+                if (category === 'house') {
+                    mappedCategory = 'houses';
+                } else if (category === 'automobile') {
+                    mappedCategory = 'vehcile'; // Match backend typo
+                }
+                formData.append('category', mappedCategory);
+                
+                formData.append('location', location);
+                
+                // The backend expects a boolean true/false for availability
+                const availabilityValue = availability === 'available' ? true : false;
+                formData.append('availability', availabilityValue);
+                
+                // The backend expects files to be in req.files.images[0]
+                if (imageFile) {
+                    formData.append('images', imageFile);
+                }
+                
+                console.log('===== SENDING DATA TO API =====');
+                console.log('Endpoint:', 'https://rentify-be-ngjp.onrender.com/api/v1/user/createListing');
+                console.log('Title:', title);
+                console.log('Description:', description.substring(0, 30) + '...');
+                console.log('Price:', price);
+                console.log('Original Category:', category);
+                console.log('Mapped Category:', mappedCategory);
+                console.log('Location:', location);
+                console.log('Availability (form):', availability);
+                console.log('Availability (sent):', availabilityValue);
+                console.log('Image size:', Math.round(imageFile.size / 1024) + 'KB');
+                console.log('Image type:', imageFile.type);
+                console.log('==============================');
+                
+                // Attempt to send data to the server
+                try {
+                    console.log('Sending request to the server...');
+                    const response = await fetch('https://rentify-be-ngjp.onrender.com/api/v1/user/createListing', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                            // Don't set Content-Type when using FormData - browser sets it automatically with boundary
+                        },
+                        body: formData,
+                        // Don't use credentials since we're using Bearer token auth
+                        credentials: 'omit'  // Changed from 'same-origin' to 'omit'
+                    });
+                    
+                    console.log('Response status:', response.status);
+                    
+                    // Try to get the response body for better error messages
+                    let responseData;
+                    try {
+                        responseData = await response.json();
+                        console.log('Response body:', responseData);
+                    } catch (e) {
+                        console.log('Could not parse response as JSON');
+                    }
+                    
+                    if (response.ok) {
+                        // If we get here, the request was successful
+                        showSuccess('Listing created successfully! 🎉');
+                        
+                        // Reset form
+                        document.getElementById('createListingForm').reset();
+                        document.getElementById('imagePreview').style.display = 'none';
+                        document.getElementById('imageLabel').innerHTML = `
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            <span>Upload Images (Max 1MB)</span>`;
+                        
+                        // Redirect to houses page after successful listing
+                        setTimeout(() => {
+                            window.location.href = 'houses.html';
+                        }, 2000);
+                        
+                    } else {
+                        // If API returns error, handle it
+                        let errorData;
+                        try {
+                            errorData = await response.json();
+                        } catch (e) {
+                            errorData = { message: 'Server returned an error with status ' + response.status };
+                        }
+                        
+                        // Check if it's a 500 error (server error)
+                        if (response.status === 500) {
+                            console.error('Server 500 error. This might be caused by:');
+                            console.error('1. File upload issues - check file size and type');
+                            console.error('2. Data format issues - check all fields match the server schema');
+                            console.error('3. Server-side validation failed');
+                            console.error('4. Database connection issues');
+                            
+                            // Show more detailed error message to user
+                            showError(`
+                                Server Error (500): The server encountered an error.
+                                
+                                This could be due to:
+                                - The image file format or size (try a smaller JPEG or PNG)
+                                - Format of the data sent (check console for details)
+                                - Server issues (the service might be experiencing problems)
+                                
+                                A demo listing will be created locally so you can continue testing.
+                            `);
+                            
+                            // Create a demo listing as fallback
+                            createDemoListing();
+                            return;
+                        }
+                        
+                        throw new Error(errorData.message || 'Server error: ' + response.status);
+                    }
+                } catch (apiError) {
+                    console.error('API Error:', apiError);
+                    
+                    // If CORS error or other network error, create a demo listing as fallback
+                    if (apiError.message.includes('Failed to fetch') || 
+                        apiError.message.includes('NetworkError') || 
+                        apiError.message.includes('CORS')) {
+                        
+                        console.warn('Creating fallback demo listing due to API error');
+                        createDemoListing();
+                    } else {
+                        // For other API errors, just show the error
+                        throw apiError;
+                    }
+                }
+                
+                // Helper function to create a demo listing (reduces duplicate code)
+                function createDemoListing() {
+                    // Convert image to data URL for storage
+                    const reader = new FileReader();
+                    reader.onload = function() {
+                        // Create a demo listing with the image data URL
+                        const demoListing = {
+                            id: 'temp-' + Date.now(),
+                            title: title,
+                            description: description,
+                            price: price,
+                            category: category,
+                            location: location,
+                            availability: availability,
+                            image: reader.result, // Store the image data URL instead of object URL
+                            date: new Date().toISOString(),
+                            isDemo: true
+                        };
+                        
+                        // Store in localStorage
+                        let listings = JSON.parse(localStorage.getItem('demoListings') || '[]');
+                        listings.push(demoListing);
+                        localStorage.setItem('demoListings', JSON.stringify(listings));
+                        
+                        // Show helpful error message about API connection issue
+                        showError(`
+                            Could not connect to the API. Your listing has been saved locally as a demo.
+                            
+                            Server errors can be caused by:
+                            1. CORS configuration issues on the backend
+                            2. Server being offline or unreachable
+                            3. Network connectivity problems
+                            
+                            Your listing data has been saved locally so you can continue testing.
+                        `);
+                        
+                        // Also show success message for better UX
+                        showSuccess('Demo listing created locally. Redirecting to view it...');
+                        
+                        // Reset form
+                        document.getElementById('createListingForm').reset();
+                        document.getElementById('imagePreview').style.display = 'none';
+                        document.getElementById('imageLabel').innerHTML = `
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="17 8 12 3 7 8"/>
+                                <line x1="12" y1="3" x2="12" y2="15"/>
+                            </svg>
+                            <span>Upload Images (Max 1MB)</span>`;
+                        
+                        // Redirect to see the listings
+                        setTimeout(() => {
+                            window.location.href = 'houses.html';
+                        }, 3000);
+                    };
+                    reader.readAsDataURL(imageFile);
+                }
+                
+            } catch (error) {
+                console.error('Listing creation error:', error);
+                showError('Error: ' + error.message);
+            } finally {
+                // Always restore button state
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
+            }
+        });
+        
+        function showError(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.innerHTML = message.replace(/\n/g, '<br>').trim();
+            errorMessage.style.display = 'block';
+            
+            // Scroll to the error message
+            errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        function showSuccess(message) {
+            const successMessage = document.getElementById('successMessage');
+            successMessage.innerHTML = message;
+            successMessage.style.display = 'block';
+            
+            // Scroll to the success message
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
 </body>
 </html> 

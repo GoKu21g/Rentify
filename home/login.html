@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rentify - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kalnia:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 450px;
+            transition: transform 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .logo {
+            text-align: center;
+            font-family: 'Kalnia', serif;
+            font-size: 3rem;
+            color: #2d3436;
+            margin-bottom: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.7rem;
+            color: #2d3436;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 4px rgba(0,123,255,0.1);
+            outline: none;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,123,255,0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .signup-link a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .signup-link a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .error-message, .success-message {
+            text-align: center;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 500;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .error-message {
+            color: #dc3545;
+            background-color: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.2);
+        }
+        
+        .success-message {
+            color: #28a745;
+            background-color: rgba(40, 167, 69, 0.1);
+            border: 1px solid rgba(40, 167, 69, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 1.5rem;
+            }
+
+            .logo {
+                font-size: 2.5rem;
+            }
+
+            .form-group input,
+            .login-btn {
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">Rentify</div>
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="email">Email or Phone</label>
+                <input type="text" id="email" required placeholder="Enter email or phone number">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required placeholder="Enter your password">
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+            <div class="signup-link">
+                Don't have an account? <a href="./signup.html">Sign up</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const emailOrPhone = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            
+            // Reset messages
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            
+            // Determine if input is email or phone
+            const isEmail = emailOrPhone.includes('@');
+            const loginData = {
+                password
+            };
+            
+            // Add email or phone based on input format
+            if (isEmail) {
+                loginData.email = emailOrPhone;
+            } else {
+                // Convert phone to number as required by the backend model
+                loginData.phone = Number(emailOrPhone);
+                
+                // Validate phone number
+                if (isNaN(loginData.phone)) {
+                    errorMessage.style.display = 'block';
+                    errorMessage.textContent = 'Please enter a valid phone number';
+                    return;
+                }
+            }
+
+            try {
+                console.log("Sending login data:", loginData);
+                
+                // Try direct API call first
+                let response;
+                let corsError = false;
+                
+                try {
+                    response = await fetch('https://rentify-be-ngjp.onrender.com/api/v1/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(loginData)
+                    });
+                } catch (err) {
+                    console.error("Direct API call failed:", err);
+                    corsError = true;
+                }
+                
+                // If there was a CORS error, try making the request to a local backend proxy
+                if (corsError) {
+                    // Display a message about CORS issues
+                    console.log("CORS error detected. If you have a local server, configure it to proxy the request.");
+                    errorMessage.style.display = 'block';
+                    errorMessage.textContent = 'CORS error: This browser cannot directly connect to the API. Please contact the administrator to set up proper CORS headers.';
+                    return;
+                }
+
+                // Check if response is JSON
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    const data = await response.json();
+                    console.log("Login response:", data);
+                    
+                    if (response.ok) {
+                        // Show success message
+                        successMessage.style.display = 'block';
+                        successMessage.textContent = 'Login successful! Redirecting...';
+                        
+                        // Store the tokens in localStorage
+                        if (data.data) {
+                            if (data.data.accessToken) {
+                                localStorage.setItem('accessToken', data.data.accessToken);
+                            }
+                            if (data.data.refreshToken) {
+                                localStorage.setItem('refreshToken', data.data.refreshToken);
+                            }
+                            // Store user data if available
+                            if (data.data.user) {
+                                localStorage.setItem('user', JSON.stringify(data.data.user));
+                            }
+                        }
+                        
+                        // Clear form
+                        document.getElementById('loginForm').reset();
+                        
+                        // Redirect to dashboard or home page
+                        setTimeout(() => {
+                            window.location.href = '../houseRenting/index.html';
+                        }, 1500);
+                    } else {
+                        errorMessage.style.display = 'block';
+                        errorMessage.textContent = data.message || 'Login failed. Please check your credentials.';
+                    }
+                } else {
+                    // Response is not JSON, likely an HTML error page
+                    throw new Error('Invalid server response. The API endpoint might be incorrect.');
+                }
+            } catch (error) {
+                errorMessage.style.display = 'block';
+                errorMessage.textContent = 'Connection error: ' + (error.message || 'Unable to connect to the server');
+                console.error('Login error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
