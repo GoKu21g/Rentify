@@ -48,9 +48,14 @@
       font-size: 16px;
       margin-top: 20px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
     button:hover {
       background-color: #0056b3;
+    }
+    button:disabled {
+      background-color: #a0c3ff;
+      cursor: not-allowed;
     }
     #qrcode canvas {
       margin: 20px auto;
@@ -78,10 +83,21 @@
       display: none;
       text-align: center;
       animation: fadeIn 0.4s ease-in-out;
+      width: 300px;
     }
     .popup h3 {
       margin: 0;
       color: green;
+    }
+    .popup p {
+      margin: 10px 0;
+    }
+    .owner-message {
+      background-color: #f0f8ff;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 15px;
+      border-left: 4px solid #007bff;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.9) translate(-50%, -50%); }
@@ -96,23 +112,33 @@
     <label for="name">Customer Name</label>
     <input type="text" id="name" placeholder="Enter your name" />
 
-    <label for="item">Item Name</label>
-    <input type="text" id="item" placeholder="Enter item name" />
+    <!-- <label for="item">Item Name</label>
+    <input type="text" id="item" placeholder="Enter item name" /> -->
 
     <label for="amount">Amount (INR)</label>
     <input type="number" id="amount" placeholder="Enter amount" />
 
-    <button onclick="generateQRCode(this)">Generate QR Code</button>
+    <button id="generateBtn" onclick="generateQRCode(this)">Generate QR Code</button>
 
     <div id="qrcode"></div>
 
-    <button onclick="completePayment()">Pay & Download Receipt</button>
+    <button id="payBtn" onclick="completePayment()" disabled>Pay & Download Receipt</button>
     <p class="note">Scan the QR with any UPI app to pay securely.</p>
   </div>
 
+  <!-- Payment Confirmation Popup -->
   <div class="popup" id="paymentPopup">
-    <h3>✅ Payment Successful!</h3>
+    <h3>✅ Booking Confirmed!</h3>
     <p>Thank you for your payment.</p>
+    <div class="owner-message">
+      <p>The owner will contact you soon to complete your booking.</p>
+    </div>
+  </div>
+
+  <!-- Bill Download Popup -->
+  <div class="popup" id="billPopup">
+    <h3>📄 Receipt Downloaded</h3>
+    <p>Your payment receipt has been saved.</p>
   </div>
 
   <script>
@@ -123,6 +149,7 @@
       const item = document.getElementById("item").value.trim();
       const amount = document.getElementById("amount").value.trim();
       const qrcodeContainer = document.getElementById("qrcode");
+      const payBtn = document.getElementById("payBtn");
 
       if (!item || !amount || isNaN(amount) || Number(amount) <= 0) {
         alert("Please enter a valid item and amount.");
@@ -140,7 +167,14 @@
         qrcodeContainer.appendChild(canvas);
         button.disabled = false;
         button.innerText = "Generate QR Code";
+        payBtn.disabled = false;
       });
+    }
+
+    function showPopup(id, duration = 3000) {
+      const popup = document.getElementById(id);
+      popup.style.display = "block";
+      setTimeout(() => popup.style.display = "none", duration);
     }
 
     function completePayment() {
@@ -156,17 +190,14 @@
       const transactionId = "RENT" + Math.floor(Math.random() * 1000000);
       const now = new Date().toLocaleString();
 
-      // Show popup
-      const popup = document.getElementById("paymentPopup");
-      popup.style.display = "block";
-      setTimeout(() => (popup.style.display = "none"), 3000);
+      showPopup("paymentPopup", 5000); // Showing for 5 seconds instead of 3
 
-      // Create PDF
+      // Generate PDF
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
 
       doc.setDrawColor(200);
-      doc.rect(15, 15, 180, 90); // border box
+      doc.rect(15, 15, 180, 90);
 
       doc.setFontSize(18);
       doc.setFont("helvetica", "bold");
@@ -175,19 +206,24 @@
       doc.setFontSize(12);
       doc.setFont("helvetica", "normal");
       doc.text(`Customer Name: ${name || "N/A"}`, 20, 40);
-      doc.text(`Item: ${item}`, 20, 50);
-      doc.text(`Amount Paid: ₹${amount}`, 20, 60);
+    //   doc.text(`Item: ${item}`, 20, 50);
+      doc.text(`Amount Paid: ${amount}`, 20, 60);
       doc.text(`Transaction ID: ${transactionId}`, 20, 70);
       doc.text(`Date: ${now}`, 20, 80);
       doc.text("Thank you for using Rentify!", 20, 95);
+      doc.text("The owner will contact you soon to complete your booking.", 20, 105);
 
       doc.save(`Rentify_Receipt_${item}.pdf`);
+
+      // Show receipt downloaded popup
+      setTimeout(() => showPopup("billPopup"), 5500);
     }
 
-    // Clear QR if inputs change
+    // Clear QR code and disable payment button if input changes
     ["name", "item", "amount"].forEach(id => {
       document.getElementById(id).addEventListener("input", () => {
         document.getElementById("qrcode").innerHTML = "";
+        document.getElementById("payBtn").disabled = true;
       });
     });
   </script>
