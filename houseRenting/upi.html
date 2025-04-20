@@ -112,9 +112,6 @@
     <label for="name">Customer Name</label>
     <input type="text" id="name" placeholder="Enter your name" />
 
-    <!-- <label for="item">Item Name</label>
-    <input type="text" id="item" placeholder="Enter item name" /> -->
-
     <label for="amount">Amount (INR)</label>
     <input type="number" id="amount" placeholder="Enter amount" />
 
@@ -146,13 +143,12 @@
 
     function generateQRCode(button) {
       const name = document.getElementById("name").value.trim();
-      const item = document.getElementById("item").value.trim();
       const amount = document.getElementById("amount").value.trim();
       const qrcodeContainer = document.getElementById("qrcode");
       const payBtn = document.getElementById("payBtn");
 
-      if (!item || !amount || isNaN(amount) || Number(amount) <= 0) {
-        alert("Please enter a valid item and amount.");
+      if (!amount || isNaN(amount) || Number(amount) <= 0) {
+        alert("Please enter a valid amount.");
         return;
       }
 
@@ -160,7 +156,7 @@
       button.innerText = "Generating...";
 
       qrcodeContainer.innerHTML = "";
-      const upiLink = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name || 'Rentify Rentals')}&am=${amount}&cu=INR&tn=Payment%20for%20${encodeURIComponent(item)}`;
+      const upiLink = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name || 'Rentify Rentals')}&am=${amount}&cu=INR&tn=Payment%20for%20Rentify`;
 
       QRCode.toCanvas(document.createElement("canvas"), upiLink, function (error, canvas) {
         if (error) console.error(error);
@@ -179,10 +175,9 @@
 
     function completePayment() {
       const name = document.getElementById("name").value.trim();
-      const item = document.getElementById("item").value.trim();
       const amount = document.getElementById("amount").value.trim();
 
-      if (!item || !amount || isNaN(amount) || Number(amount) <= 0) {
+      if (!amount || isNaN(amount) || Number(amount) <= 0) {
         alert("Please enter valid details before downloading receipt.");
         return;
       }
@@ -190,9 +185,8 @@
       const transactionId = "RENT" + Math.floor(Math.random() * 1000000);
       const now = new Date().toLocaleString();
 
-      showPopup("paymentPopup", 5000); // Showing for 5 seconds instead of 3
+      showPopup("paymentPopup", 5000);
 
-      // Generate PDF
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF();
 
@@ -206,21 +200,19 @@
       doc.setFontSize(12);
       doc.setFont("helvetica", "normal");
       doc.text(`Customer Name: ${name || "N/A"}`, 20, 40);
-    //   doc.text(`Item: ${item}`, 20, 50);
-      doc.text(`Amount Paid: ${amount}`, 20, 60);
-      doc.text(`Transaction ID: ${transactionId}`, 20, 70);
-      doc.text(`Date: ${now}`, 20, 80);
-      doc.text("Thank you for using Rentify!", 20, 95);
-      doc.text("The owner will contact you soon to complete your booking.", 20, 105);
+      doc.text(`Amount Paid: ${amount}`, 20, 50);
+      doc.text(`Transaction ID: ${transactionId}`, 20, 60);
+      doc.text(`Date: ${now}`, 20, 70);
+      doc.text("Thank you for using Rentify!", 20, 85);
+      doc.text("The owner will contact you soon to complete your booking.", 20, 95);
 
-      doc.save(`Rentify_Receipt_${item}.pdf`);
+      doc.save(`Rentify_Receipt_${transactionId}.pdf`);
 
-      // Show receipt downloaded popup
       setTimeout(() => showPopup("billPopup"), 5500);
     }
 
     // Clear QR code and disable payment button if input changes
-    ["name", "item", "amount"].forEach(id => {
+    ["name", "amount"].forEach(id => {
       document.getElementById(id).addEventListener("input", () => {
         document.getElementById("qrcode").innerHTML = "";
         document.getElementById("payBtn").disabled = true;
