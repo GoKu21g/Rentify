@@ -1991,9 +1991,15 @@
                     </div>
 
                     <div class="action-buttons">
-                        <button class="action-btn primary-btn" onclick="contactOwner('${listing.id}')">Contact Owner</button>
-                        ${listing.isApi ? `<button class="action-btn" style="background: #f8f9fa; color: #333; border: 1px solid #ddd; margin-left: 10px;" onclick="viewDetails('${listing.id}')">View Details</button>` : ''}
-                    </div>
+                       <button class="action-btn primary-btn" onclick="contactOwner('${listing.id}')">Contact Owner</button>
+                    ${listing.isApi ? `
+                        <a href="house-details.html?id=${listing.id}" class="action-btn" style="background: #f8f9fa; color: #333; border: 1px solid #ddd; margin-left: 10px; text-decoration: none; display: inline-block; padding: 10px 15px; border-radius: 5px;">
+                            View Details
+                            </a>
+
+                        <a href="upi.html?id=${listing.id}" class="action-btn" style="background: #28a745; color: white; border: none; margin-left: 10px; text-decoration: none; padding: 10px 15px; border-radius: 5px;">Book</a>
+                    ` : ''}
+                    
                 </div>
             `;
             

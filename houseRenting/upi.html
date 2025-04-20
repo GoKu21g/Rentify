@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rentify - UPI Payment</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+      padding: 40px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 25px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      margin-top: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #qrcode canvas {
+      margin: 20px auto;
+      display: block;
+      background: #f9f9f9;
+      padding: 10px;
+      border-radius: 12px;
+    }
+    .note {
+      font-size: 13px;
+      text-align: center;
+      color: #555;
+      margin-top: 10px;
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      z-index: 9999;
+      display: none;
+      text-align: center;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+    .popup h3 {
+      margin: 0;
+      color: green;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9) translate(-50%, -50%); }
+      to { opacity: 1; transform: scale(1) translate(-50%, -50%); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Rentify UPI Payment</h2>
+
+    <label for="name">Customer Name</label>
+    <input type="text" id="name" placeholder="Enter your name" />
+
+    <label for="item">Item Name</label>
+    <input type="text" id="item" placeholder="Enter item name" />
+
+    <label for="amount">Amount (INR)</label>
+    <input type="number" id="amount" placeholder="Enter amount" />
+
+    <button onclick="generateQRCode(this)">Generate QR Code</button>
+
+    <div id="qrcode"></div>
+
+    <button onclick="completePayment()">Pay & Download Receipt</button>
+    <p class="note">Scan the QR with any UPI app to pay securely.</p>
+  </div>
+
+  <div class="popup" id="paymentPopup">
+    <h3>✅ Payment Successful!</h3>
+    <p>Thank you for your payment.</p>
+  </div>
+
+  <script>
+    const upiId = "nalint2005@oksbi";
+
+    function generateQRCode(button) {
+      const name = document.getElementById("name").value.trim();
+      const item = document.getElementById("item").value.trim();
+      const amount = document.getElementById("amount").value.trim();
+      const qrcodeContainer = document.getElementById("qrcode");
+
+      if (!item || !amount || isNaN(amount) || Number(amount) <= 0) {
+        alert("Please enter a valid item and amount.");
+        return;
+      }
+
+      button.disabled = true;
+      button.innerText = "Generating...";
+
+      qrcodeContainer.innerHTML = "";
+      const upiLink = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name || 'Rentify Rentals')}&am=${amount}&cu=INR&tn=Payment%20for%20${encodeURIComponent(item)}`;
+
+      QRCode.toCanvas(document.createElement("canvas"), upiLink, function (error, canvas) {
+        if (error) console.error(error);
+        qrcodeContainer.appendChild(canvas);
+        button.disabled = false;
+        button.innerText = "Generate QR Code";
+      });
+    }
+
+    function completePayment() {
+      const name = document.getElementById("name").value.trim();
+      const item = document.getElementById("item").value.trim();
+      const amount = document.getElementById("amount").value.trim();
+
+      if (!item || !amount || isNaN(amount) || Number(amount) <= 0) {
+        alert("Please enter valid details before downloading receipt.");
+        return;
+      }
+
+      const transactionId = "RENT" + Math.floor(Math.random() * 1000000);
+      const now = new Date().toLocaleString();
+
+      // Show popup
+      const popup = document.getElementById("paymentPopup");
+      popup.style.display = "block";
+      setTimeout(() => (popup.style.display = "none"), 3000);
+
+      // Create PDF
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.setDrawColor(200);
+      doc.rect(15, 15, 180, 90); // border box
+
+      doc.setFontSize(18);
+      doc.setFont("helvetica", "bold");
+      doc.text("Rentify - Payment Receipt", 105, 25, null, null, "center");
+
+      doc.setFontSize(12);
+      doc.setFont("helvetica", "normal");
+      doc.text(`Customer Name: ${name || "N/A"}`, 20, 40);
+      doc.text(`Item: ${item}`, 20, 50);
+      doc.text(`Amount Paid: ₹${amount}`, 20, 60);
+      doc.text(`Transaction ID: ${transactionId}`, 20, 70);
+      doc.text(`Date: ${now}`, 20, 80);
+      doc.text("Thank you for using Rentify!", 20, 95);
+
+      doc.save(`Rentify_Receipt_${item}.pdf`);
+    }
+
+    // Clear QR if inputs change
+    ["name", "item", "amount"].forEach(id => {
+      document.getElementById(id).addEventListener("input", () => {
+        document.getElementById("qrcode").innerHTML = "";
+      });
+    });
+  </script>
+</body>
+</html>
