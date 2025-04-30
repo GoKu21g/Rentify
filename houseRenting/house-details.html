@@ -385,9 +385,54 @@
                 Discover your dream home in the heart of Ghaziabad with this stunning 3 BHK for sale in Prateek Grand City. Located on the 24th floor of a modern 28-story residential complex, this property offers breathtaking views of the city skyline. The apartment features spacious rooms, premium fittings, and world-class amenities including a club house, swimming pool, and gymnasium.
             </div>
 
-            <button class="contact-button" id="contactOwnerBtn">
+            <button class="contact-button" id="contactOwnerBtn" onclick="contactOwnerViaWhatsApp()">
                 Contact Owner
             </button>
+
+            <script>
+            async function contactOwnerViaWhatsApp() {
+                try {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const listingId = urlParams.get('id');
+                    
+                    if (!listingId) {
+                        alert('Listing ID not found');
+                        return;
+                    }
+
+                    const token = localStorage.getItem('accessToken');
+                    if (!token) {
+                        alert('Please login to contact the owner');
+                        window.location.href = '../home/login.html';
+                        return;
+                    }
+
+                    const response = await fetch(`https://rentify-be-ngjp.onrender.com/api/v1/listing/${listingId}/owner`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const ownerPhoneNumber = data.owner.phoneNumber;
+                        if (ownerPhoneNumber) {
+                            const message = encodeURIComponent('Hi! I am interested in your listing on Rentify.');
+                            window.location.href = `https://wa.me/${ownerPhoneNumber}?text=${message}`;
+                        } else {
+                            alert('Owner phone number is not available.');
+                        }
+                    } else {
+                        alert('Failed to fetch owner details. Please try again later.');
+                    }
+                } catch (error) {
+                    console.error('Error contacting owner:', error);
+                    alert('An error occurred. Please try again later.');
+                }
+            }
+            </script>
+
         </div>
 
         <div class="reviews-section">
@@ -452,7 +497,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js" integrity="sha384-+q6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js" integrity="sha384-+q6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6Xq6" crossorigin="anonymous"></script>
     <script src="./app.js"></script>
 </body>
 </html>

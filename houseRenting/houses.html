@@ -1714,7 +1714,7 @@
                 `;
                 
                 // Insert the note at the right position
-                const apiNoteElement = document.querySelector('.listings-container > div[style*="rgba(212, 237, 218, 0.7)"]');
+                const apiNoteElement = document.querySelector('.listings-container > div[style*="rgba(255, 243, 205, 0.7)"]');
                 if (apiNoteElement) {
                     apiNoteElement.insertAdjacentElement('afterend', noteElement);
                 } else {
@@ -1844,7 +1844,7 @@
             noListings.style.textAlign = 'center';
             noListings.style.marginTop = '20px';
             noListings.innerHTML = `
-                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#6c757d" stroke-width="1" style="margin-bottom: 15px;">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#6c757d" stroke-width="1">
                     <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                     <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                     <line x1="12" y1="22.08" x2="12" y2="12"></line>
@@ -1991,21 +1991,57 @@
                     </div>
 
                     <div class="action-buttons">
-                       <button class="action-btn primary-btn" onclick="contactOwner('${listing.id}')">Contact Owner</button>
-                    ${listing.isApi ? `
-                        <a href="house-details.html?id=${listing.id}" class="action-btn" style="background: #f8f9fa; color: #333; border: 1px solid #ddd; margin-left: 10px; text-decoration: none; display: inline-block; padding: 10px 15px; border-radius: 5px;">
-                            View Details
-                            </a>
-
-                        <a href="upi.html?id=${listing.id}" class="action-btn" style="background: #28a745; color: white; border: none; margin-left: 10px; text-decoration: none; padding: 10px 15px; border-radius: 5px;">Book</a>
-                    ` : ''}
-                    
+                       <button class="action-btn primary-btn" onclick="window.location.href='https://wa.me/918102523499?text=Hi%20there!'">Contact Owner</button>
+                       ${listing.isApi ? `
+                            <a href="house-details.html?id=${listing.id}" class="action-btn secondary-btn">View Details</a>
+                            <a href="upi.html?id=${listing.id}" class="action-btn book-btn">Book</a>
+                        ` : ''}
+                    </div>
                 </div>
             `;
             
             return card;
         }
         
+        async function contactOwnerViaWhatsApp(listingId) {
+            try {
+                if (!listingId) {
+                    alert('Listing ID not found');
+                    return;
+                }
+
+                const token = localStorage.getItem('accessToken');
+                if (!token) {
+                    alert('Please login to contact the owner');
+                    window.location.href = '../home/login.html';
+                    return;
+                }
+
+                const response = await fetch(`https://rentify-be-ngjp.onrender.com/api/v1/listing/${listingId}/owner`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const ownerPhoneNumber = data.owner.phoneNumber;
+                    if (ownerPhoneNumber) {
+                        const message = encodeURIComponent('Hi! I am interested in your listing on Rentify.');
+                        window.location.href = `https://wa.me/${ownerPhoneNumber}?text=${message}`;
+                    } else {
+                        alert('Owner phone number is not available.');
+                    }
+                } else {
+                    alert('Failed to fetch owner details. Please try again later.');
+                }
+            } catch (error) {
+                console.error('Error contacting owner:', error);
+                alert('An error occurred. Please try again later.');
+            }
+        }
+
         function contactOwner(listingId) {
             const user = localStorage.getItem('user');
             if (!user) {
@@ -2618,4 +2654,4 @@
         }
     </script>
 </body>
-</html> 
+</html>
